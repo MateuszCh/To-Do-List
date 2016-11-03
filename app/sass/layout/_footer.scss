@@ -1,0 +1,11 @@
+footer  {
+  background-color: $header-color;
+  color: $header-text-color;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  p {
+    margin: 0;
+    padding: 10px;
+  }
+}
