@@ -18,6 +18,28 @@
             <li>Trzecie Zadanie</li>
         </ul>
     </section>
+    <section class="addForm">
+        <i id="close" class="fa fa-times fa-2x close" aria-hidden="true"></i>
+        <form>
+            <h2>New Task</h2>
+            <fieldset>
+                <input type="text" id="title" placeholder="Title">
+                <textarea cols="10" id="content" placeholder="Description"></textarea>
+                <div class="pyk">
+                    <div class="time">
+                        <label for="time">Time</label>
+                        <input type="time" id="time" value="11:11">
+                    </div>
+                    <div class="data">
+                        <label for="data">Date</label>
+                        <input type="date" id="data" value="2016-11-04">
+                    </div>
+                </div>
+
+                <input type="submit" value="Add">
+            </fieldset>
+        </form>
+    </section>
     <footer>
         <p>Zakończone zadania 5/5</p>
         <button id="plus">+</button>
