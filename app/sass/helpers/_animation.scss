@@ -1,0 +1,17 @@
+@keyframes powiekszenie {
+  0%  {
+    height: 0;
+  }
+  100%  {
+    height: 100vh;
+  }
+}
+
+@keyframes schowaj {
+  0%  {
+    height: 100vh;
+  }
+  100%  {
+    height: 0;
+  }
+}

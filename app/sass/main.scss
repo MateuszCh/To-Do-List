@@ -3,6 +3,7 @@
 @import 'helpers/variables';
 @import "helpers/mixins";
 @import 'helpers/placeholders';
+@import "helpers/animation";
 
 @import "base/base";
 @import "base/fonts";
@@ -15,6 +16,7 @@
 @import 'components/container';
 @import 'components/buttons';
 @import 'components/nav';
-@import 'components/inlinelist';
 @import "components/list";
+@import "components/addForm";
+@import "components/closeButton";
 

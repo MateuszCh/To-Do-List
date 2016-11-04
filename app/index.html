@@ -5,17 +5,14 @@
     <title>ToDo List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
         <h1>ToDo List</h1>
-        <form>
-            <input type="text" placeholder="task..">
-            <button>+</button>
-        </form>
     </header>
     <section class="list">
-        <ul class="tasks">
+        <ul class="tasks" id="tasks">
             <li>Pierwsze Zadanie</li>
             <li>Drugie Zadanie</li>
             <li>Trzecie Zadanie</li>
@@ -23,6 +20,7 @@
     </section>
     <footer>
         <p>Zakończone zadania 5/5</p>
+        <button id="plus">+</button>
     </footer>
     <script src="js/js.js"></script>
 </body>

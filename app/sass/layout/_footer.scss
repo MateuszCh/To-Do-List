@@ -3,9 +3,27 @@ footer  {
   color: $header-text-color;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
 
   p {
     margin: 0;
     padding: 10px;
+  }
+
+  button  {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: 40px;
+    background-color: $header-color;
+    font-size: 2rem;
+    border-radius: 50%;
+    height: 40px;
+    border: 1px solid white;
+    color: $header-text-color;
+    cursor: pointer;
+    box-shadow: 0 0 1px 1px white;
   }
 }
