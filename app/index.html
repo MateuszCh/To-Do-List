@@ -9,39 +9,36 @@
 </head>
 <body>
     <header>
-        <h1>ToDo List</h1>
+        <h1>ToDo App</h1>
     </header>
     <section class="list">
         <ul class="tasks" id="tasks">
-            <li>Pierwsze Zadanie</li>
-            <li>Drugie Zadanie</li>
-            <li>Trzecie Zadanie</li>
         </ul>
     </section>
-    <section class="addForm">
+    <section class="addForm" id="addForm">
         <i id="close" class="fa fa-times fa-2x close" aria-hidden="true"></i>
         <form>
             <h2>New Task</h2>
             <fieldset>
-                <input type="text" id="title" placeholder="Title">
-                <textarea cols="10" id="content" placeholder="Description"></textarea>
+                <input type="text" id="title" placeholder="Title" class="addFormInputs">
+                <input type="text" id="category" placeholder="Category" class="addFormInputs">
+                <textarea cols="10" id="content" placeholder="Description" class="addFormInputs"></textarea>
                 <div class="pyk">
                     <div class="time">
                         <label for="time">Time</label>
-                        <input type="time" id="time" value="11:11">
+                        <input type="time" id="time" class="addFormInputs">
                     </div>
                     <div class="data">
                         <label for="data">Date</label>
-                        <input type="date" id="data" value="2016-11-04">
+                        <input type="date" id="data" class="addFormInputs">
                     </div>
                 </div>
-
-                <input type="submit" value="Add">
+                <input type="submit" value="Add" id="addTask">
             </fieldset>
         </form>
     </section>
     <footer>
-        <p>Zakończone zadania 5/5</p>
+        <p>Completed tasks 5/5</p>
         <button id="plus">+</button>
     </footer>
     <script src="js/js.js"></script>
