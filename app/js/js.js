@@ -3,9 +3,11 @@
  */
 var addButton = document.getElementById("plus");
 var lista = document.getElementById("tasks");
+var completedList = document.getElementById("completedTasks");
 var addForm = document.getElementById("addForm");
 var closeButton = document.getElementById("close");
 var addTask = document.getElementById("addTask");
+var completedCheckbox = document.getElementsByClassName("completedCheckbox");
 
 var title = document.getElementById("title");
 var category = document.getElementById("category");
@@ -49,6 +51,7 @@ var deleteButtons = document.getElementsByClassName("deleteButton");
 
 function showTasks() {
     lista.innerHTML =   "";
+    completedList.innerHTML = "";
     for(var i =0; i < zadania.length; i++){
         if(zadania[i] == undefined){
             continue;
@@ -57,6 +60,7 @@ function showTasks() {
         el.setAttribute("data-index-number", i);
         var completed = document.createElement("input");
         completed.type = "checkbox";
+        completed.classList.add("completedCheckbox");
         var label = document.createElement("label");
         var deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
@@ -69,7 +73,12 @@ function showTasks() {
         el.appendChild(completed);
         el.appendChild(label);
         el.appendChild(deleteButton);
-        lista.appendChild(el);
+        if(zadania[i].completed){
+            completedList.appendChild(el);
+            completed.checked = true;
+        } else {
+            lista.appendChild(el);
+        }
     }
 }
 
@@ -83,6 +92,30 @@ document.addEventListener("click", function (e) {
        }
    }
 });
+
+// for(var i = 0; i < completedCheckbox.length; i){
+//     completedCheckbox[i].addEventListener("change", function (e) {
+//         var indexOfObject = e.target.parentNode.dataset.indexNumber;
+//         if(completedCheckbox[i].checked){
+//             zadania[indexOfObject].completed = true;
+//         } else {
+//             zadania[indexOfObject].completed = false;
+//         }
+//     }, false)
+//     showTasks();
+// }
+
+document.addEventListener("click", function (e) {
+    if(e.target && e.target.classList.contains("completedCheckbox")){
+        var indexOfObject = e.target.parentNode.dataset.indexNumber;
+        if(e.target.checked){
+            zadania[indexOfObject].completed = true;
+        } else {
+            zadania[indexOfObject].completed = false;
+        }
+        showTasks();
+    }
+}, false)
 
 addTask.addEventListener("click", function (e) {
     e.preventDefault();
