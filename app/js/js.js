@@ -38,20 +38,56 @@ function clearAddForm() {
     showTasks();
 }
 
+// deleteButton.addEventListener("click")
+
+
+
+// function deleteTask() {
+// }
+
+var deleteButtons = document.getElementsByClassName("deleteButton");
 
 function showTasks() {
     lista.innerHTML =   "";
     for(var i =0; i < zadania.length; i++){
+        if(zadania[i] == undefined){
+            continue;
+        }
         var el = document.createElement("li");
-        el.textContent = zadania[i].title;
+        el.setAttribute("data-index-number", i);
+        var completed = document.createElement("input");
+        completed.type = "checkbox";
+        var label = document.createElement("label");
+        var deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add("deleteButton");
+        if(zadania[i].title){
+            label.textContent = zadania[i].title;
+        } else {
+            label.textContent = zadania[i].description;
+        }
+        el.appendChild(completed);
+        el.appendChild(label);
+        el.appendChild(deleteButton);
         lista.appendChild(el);
     }
 }
 
+document.addEventListener("click", function (e) {
+   if(e.target && e.target.classList.contains("deleteButton")){
+       var indexOfObject = e.target.parentNode.dataset.indexNumber;
+       delete zadania[indexOfObject];
+       showTasks();
+       if(zadania[zadania.length-1] == undefined){
+            zadania.pop();
+       }
+   }
+});
+
 addTask.addEventListener("click", function (e) {
     e.preventDefault();
     if(title.value || content.value){
-        var task = new Task(title.value, category.value, content.value, time.value, data.value);
+        var task = new Task(title.value, content.value, category.value, time.value, data.value);
         zadania.push(task);
         console.log(zadania);
         clearAddForm();
