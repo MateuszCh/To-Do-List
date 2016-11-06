@@ -8,12 +8,23 @@ var addForm = document.getElementById("addForm");
 var closeButton = document.getElementById("close");
 var addTask = document.getElementById("addTask");
 var completedCheckbox = document.getElementsByClassName("completedCheckbox");
+var completedTasksCounter = document.getElementById("counter");
 
 var title = document.getElementById("title");
 var category = document.getElementById("category");
 var content = document.getElementById("content");
 var time = document.getElementById("time");
 var data = document.getElementById("data");
+var zadania = [];
+
+function Task(title, description, category, time, date) {
+    this.title = title;
+    this.description = description;
+    this.category = category;
+    this.time = time;
+    this.date = date;
+    this.completed = false;
+}
 
 addButton.addEventListener("click", function (e) {
     addForm.style.display = "block";
@@ -40,14 +51,7 @@ function clearAddForm() {
     showTasks();
 }
 
-// deleteButton.addEventListener("click")
 
-
-
-// function deleteTask() {
-// }
-
-var deleteButtons = document.getElementsByClassName("deleteButton");
 
 function showTasks() {
     lista.innerHTML =   "";
@@ -63,8 +67,8 @@ function showTasks() {
         completed.classList.add("completedCheckbox");
         var label = document.createElement("label");
         var deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.classList.add("deleteButton");
+        // deleteButton.textContent = "Delete";
+        deleteButton.innerHTML = '<i class="fa fa-trash deleteButton" aria-hidden="true"></i>';
         if(zadania[i].title){
             label.textContent = zadania[i].title;
         } else {
@@ -80,11 +84,12 @@ function showTasks() {
             lista.appendChild(el);
         }
     }
+    updateCompletedTaskaCounter()
 }
 
 document.addEventListener("click", function (e) {
    if(e.target && e.target.classList.contains("deleteButton")){
-       var indexOfObject = e.target.parentNode.dataset.indexNumber;
+       var indexOfObject = e.target.parentNode.parentNode.dataset.indexNumber;
        delete zadania[indexOfObject];
        showTasks();
        if(zadania[zadania.length-1] == undefined){
@@ -92,18 +97,6 @@ document.addEventListener("click", function (e) {
        }
    }
 });
-
-// for(var i = 0; i < completedCheckbox.length; i){
-//     completedCheckbox[i].addEventListener("change", function (e) {
-//         var indexOfObject = e.target.parentNode.dataset.indexNumber;
-//         if(completedCheckbox[i].checked){
-//             zadania[indexOfObject].completed = true;
-//         } else {
-//             zadania[indexOfObject].completed = false;
-//         }
-//     }, false)
-//     showTasks();
-// }
 
 document.addEventListener("click", function (e) {
     if(e.target && e.target.classList.contains("completedCheckbox")){
@@ -127,14 +120,21 @@ addTask.addEventListener("click", function (e) {
     }
 });
 
-var zadania = [];
-
-function Task(title, description, category, time, date) {
-    this.title = title;
-    this.description = description;
-    this.category = category;
-    this.time = time;
-    this.date = date;
-    this.completed = false;
+function updateCompletedTaskaCounter() {
+    var allTask = 0;
+    var completedTasks = 0;
+    for(var i = 0; i < zadania.length; i++){
+        if(zadania[i]){
+            allTask++;
+            if(zadania[i].completed){
+                completedTasks++;
+            }
+        }
+    }
+    completedTasksCounter.textContent = "Completed tasks: " + completedTasks + "/" + allTask;
 }
 
+//poprawić checkboxy
+//edytowanie zadań
+//sortowanie
+//kategorie

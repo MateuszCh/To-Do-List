@@ -13,10 +13,12 @@
     </header>
     <section class="list">
         <section>
+            <h2>Tasks:</h2>
             <ul class="tasks" id="tasks">
             </ul>
         </section>
         <section>
+            <h2>Completed Tasks:</h2>
             <ul class="completedTasks" id="completedTasks">
             </ul>
         </section>
@@ -27,7 +29,7 @@
         <form>
             <h2>New Task</h2>
             <fieldset>
-                <input type="text" id="title" placeholder="Title" class="addFormInputs">
+                <input type="text" id="title" placeholder="Title" class="addFormInputs" maxlength="20">
                 <input type="text" id="category" placeholder="Category" class="addFormInputs">
                 <textarea cols="10" id="content" placeholder="Description" class="addFormInputs"></textarea>
                 <div class="pyk">
@@ -45,7 +47,7 @@
         </form>
     </section>
     <footer>
-        <p>Completed tasks 5/5</p>
+        <p id="counter">Completed tasks: 0/0</p>
         <button id="plus">+</button>
     </footer>
     <script src="js/js.js"></script>
