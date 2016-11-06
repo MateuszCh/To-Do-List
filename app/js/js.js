@@ -65,6 +65,10 @@ function showTasks() {
         var completed = document.createElement("input");
         completed.type = "checkbox";
         completed.classList.add("completedCheckbox");
+        var idy = "idy" + i;
+        completed.id = idy;
+        var labelForCheckbox = document.createElement("label");
+        labelForCheckbox.setAttribute("for", idy);
         var label = document.createElement("label");
         var deleteButton = document.createElement("button");
         // deleteButton.textContent = "Delete";
@@ -75,6 +79,7 @@ function showTasks() {
             label.textContent = zadania[i].description;
         }
         el.appendChild(completed);
+        el.appendChild(labelForCheckbox);
         el.appendChild(label);
         el.appendChild(deleteButton);
         if(zadania[i].completed){
@@ -134,7 +139,9 @@ function updateCompletedTaskaCounter() {
     completedTasksCounter.textContent = "Completed tasks: " + completedTasks + "/" + allTask;
 }
 
-//poprawić checkboxy
+//poprawić footer i addButton w css. ustawić do dołu na stałe;
+//dynamiczne h2 do list
 //edytowanie zadań
 //sortowanie
 //kategorie
+//local storage

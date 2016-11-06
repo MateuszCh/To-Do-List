@@ -18,7 +18,7 @@
     justify-content: space-between;
     font-size: 1.25rem;
 
-    label {
+    label:nth-child(3) {
       flex-grow: 1;
       padding-left: 10px;
     }
