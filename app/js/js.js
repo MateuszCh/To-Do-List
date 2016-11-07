@@ -62,6 +62,7 @@ function showTasks() {
             continue;
         }
         var el = document.createElement("li");
+
         el.setAttribute("data-index-number", i);
         var completed = document.createElement("input");
         completed.type = "checkbox";
@@ -86,8 +87,10 @@ function showTasks() {
         if(zadania[i].completed){
             completedList.appendChild(el);
             completed.checked = true;
+            el.classList.add("lisCom");
         } else {
             lista.appendChild(el);
+            el.classList.add("lisUn");
         }
     }
     updateHeadersForList();
@@ -154,22 +157,38 @@ addTask.addEventListener("click", function (e) {
 document.addEventListener("click", function (e) {
     if(e.target && e.target.classList.contains("deleteAll")){
         if(e.target.parentNode == document.getElementById("tasksHeader")){
-            lista.innerHTML = "";
-            for(var i = 0; i < zadania.length; i++){
+            var lisy = document.getElementsByClassName("lisUn");
+            for(var p = 0; p < lisy.length; p++){
+                lisy[p].classList.add("hide");
+            }
+            setTimeout(function () {
+                lista.innerHTML = "";
 
+            }, 500);
+            for(var i = 0; i < zadania.length; i++){
                 if(zadania[i] && zadania[i].completed == false){
                     delete zadania[i];
                 }
             }
         } else if(e.target.parentNode == document.getElementById("completedTasksHeader")){
-            completedList.innerHTML = "";
+            var lisy2 = document.getElementsByClassName("lisCom");
+            for(var m = 0; m < lisy2.length; m++){
+                lisy2[m].classList.add("hide");
+            }
+            setTimeout(function () {
+                completedList.innerHTML = "";
+
+            }, 500);
             for(var j = 0; j < zadania.length; j++){
                 if(zadania[j] && zadania[j].completed == true){
                     delete zadania[j];
                 }
             }
         }
-        updateHeadersForList();
+        setTimeout(function () {
+            updateHeadersForList();
+            updateCompletedTaskaCounter()
+        }, 501);
     }
 }, false);
 
