@@ -5,6 +5,9 @@ header  {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   text-align: center;
+  position: fixed;
+  top: 0;
+  border-bottom: 5px solid darken($header-color, 10%);
 }
 
 h1  {

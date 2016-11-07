@@ -8,9 +8,22 @@ body  {
 
 section > h2  {
   color: $header-color;
-  padding-left: 10px;
+  margin: 0;
   font-family: 'Work Sans', sans-serif;
+  flex-grow: 1;
 }
+.tasksHeader  {
+  display: none;
+}
+.showHeader  {
+  margin: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: $header-color;
+}
+
+
 
 input:focus, input:active, input:active, input:focus:active,
 button:focus, button:active, button:focus:active,

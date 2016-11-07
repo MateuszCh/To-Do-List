@@ -24,6 +24,8 @@
     }
 
     &:hover {
+      transition: background-color .5s ease,
+                  box-shadow .5s ease;
       background-color: lighten($header-color, 10%);
       color: $header-text-color;
       box-shadow: 1px 1px 2px 2px $header-color;
@@ -44,7 +46,12 @@
   }
 }
 
+.completedTasks label:nth-child(3)  {
+  text-decoration: line-through;
+}
+
 .list {
-  min-height: calc(100vh - 155px);
+  margin-top: 90px;
+  margin-bottom: 60px;
 }
 

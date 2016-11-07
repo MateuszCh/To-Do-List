@@ -3,13 +3,14 @@
  */
 var addButton = document.getElementById("plus");
 var lista = document.getElementById("tasks");
+
 var completedList = document.getElementById("completedTasks");
 var addForm = document.getElementById("addForm");
 var closeButton = document.getElementById("close");
 var addTask = document.getElementById("addTask");
 var completedCheckbox = document.getElementsByClassName("completedCheckbox");
 var completedTasksCounter = document.getElementById("counter");
-
+var deleteAllButtons = document.getElementsByClassName("deleteAll");
 var title = document.getElementById("title");
 var category = document.getElementById("category");
 var content = document.getElementById("content");
@@ -34,7 +35,7 @@ addButton.addEventListener("click", function (e) {
     }, 500)
 }, false);
 
-closeButton.addEventListener("click", function (e) {
+closeButton.addEventListener("click", function () {
     clearAddForm();
 }, false);
 
@@ -89,19 +90,44 @@ function showTasks() {
             lista.appendChild(el);
         }
     }
+    updateHeadersForList();
     updateCompletedTaskaCounter()
+}
+
+function updateHeadersForList() {
+    if(lista.firstChild){
+        var h2 = document.getElementById("tasksHeader");
+        h2.classList.add("showHeader");
+    } else {
+        var h2 = document.getElementById("tasksHeader");
+        h2.classList.remove("showHeader");
+    }
+    if(completedList.firstChild){
+        var h2 = document.getElementById("completedTasksHeader");
+        h2.classList.add("showHeader");
+    } else {
+        var h2 = document.getElementById("completedTasksHeader");
+        h2.classList.remove("showHeader");
+    }
 }
 
 document.addEventListener("click", function (e) {
    if(e.target && e.target.classList.contains("deleteButton")){
+       e.target.parentNode.parentNode.classList.add("hide");
        var indexOfObject = e.target.parentNode.parentNode.dataset.indexNumber;
        delete zadania[indexOfObject];
-       showTasks();
+       setTimeout(function () {
+           // addForm.style.display = "none";
+           // addForm.classList.remove("hide");
+           showTasks();
+       }, 500);
+
+
        if(zadania[zadania.length-1] == undefined){
             zadania.pop();
        }
    }
-});
+}, false);
 
 document.addEventListener("click", function (e) {
     if(e.target && e.target.classList.contains("completedCheckbox")){
@@ -113,7 +139,7 @@ document.addEventListener("click", function (e) {
         }
         showTasks();
     }
-}, false)
+}, false);
 
 addTask.addEventListener("click", function (e) {
     e.preventDefault();
@@ -124,6 +150,29 @@ addTask.addEventListener("click", function (e) {
         clearAddForm();
     }
 });
+
+document.addEventListener("click", function (e) {
+    if(e.target && e.target.classList.contains("deleteAll")){
+        if(e.target.parentNode == document.getElementById("tasksHeader")){
+            lista.innerHTML = "";
+            for(var i = 0; i < zadania.length; i++){
+
+                if(zadania[i] && zadania[i].completed == false){
+                    delete zadania[i];
+                }
+            }
+        } else if(e.target.parentNode == document.getElementById("completedTasksHeader")){
+            completedList.innerHTML = "";
+            for(var j = 0; j < zadania.length; j++){
+                if(zadania[j] && zadania[j].completed == true){
+                    delete zadania[j];
+                }
+            }
+        }
+        updateHeadersForList();
+    }
+}, false);
+
 
 function updateCompletedTaskaCounter() {
     var allTask = 0;
@@ -139,9 +188,10 @@ function updateCompletedTaskaCounter() {
     completedTasksCounter.textContent = "Completed tasks: " + completedTasks + "/" + allTask;
 }
 
-//poprawić footer i addButton w css. ustawić do dołu na stałe;
-//dynamiczne h2 do list
-//edytowanie zadań
+//animacje znikania przesuwanych zadań
+//edytowanie zadań, kolory
 //sortowanie
 //kategorie
+//dodać przyciski usuń wszystko, completed wszystko,
+//zwijanie tasks oraz completed tasks
 //local storage
