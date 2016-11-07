@@ -12,6 +12,8 @@ var addTask = document.getElementById("addTask");
 var completedCheckbox = document.getElementsByClassName("completedCheckbox");
 var completedTasksCounter = document.getElementById("counter");
 var save = document.getElementById("save");
+var tasksHeader = document.getElementById("tasksHeader");
+var completedTasksHeader = document.getElementById("completedTasksHeader");
 var currentTaskObject;
 
 var title = document.getElementById("title");
@@ -25,6 +27,31 @@ var editContent = document.getElementById("contentEdit");
 var editTime = document.getElementById("timeEdit");
 var editData = document.getElementById("dataEdit");
 var zadania = [];
+
+
+function hideList(list) {
+    if(list.style.display == "block"){
+        list.classList.add("hide");
+        setTimeout(function () {
+            list.style.display = "none";
+            list.classList.remove("hide");
+        }, 500);
+    } else if (list.style.display == "none"){
+        list.style.display = "block";
+        list.classList.add("show");
+        setTimeout(function () {
+            list.classList.remove("show");
+        }, 500)
+    }
+}
+
+tasksHeader.addEventListener("click", function (e) {
+    hideList(lista);
+}, false);
+
+completedTasksHeader.addEventListener("click", function (e) {
+    hideList(completedList);
+}, false);
 
 function Task(title, description, category, time, date) {
     this.title = title;
@@ -243,9 +270,11 @@ editFormCloseButton.addEventListener("click", function () {
     clear(editForm);
 }, false);
 
+
+
+
 //animacje znikania przesuwanych zadań
-//edytowanie zadań, kolory
+//kolory
 //sortowanie
 //kategorie
-//zwijanie tasks oraz completed tasks
 //local storage
