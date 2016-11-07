@@ -3,19 +3,27 @@
  */
 var addButton = document.getElementById("plus");
 var lista = document.getElementById("tasks");
-
 var completedList = document.getElementById("completedTasks");
 var addForm = document.getElementById("addForm");
-var closeButton = document.getElementById("close");
+var editForm = document.getElementById("editForm");
+var addFormCloseButton = document.getElementById("close");
+var editFormCloseButton = document.getElementById("closeEdit");
 var addTask = document.getElementById("addTask");
 var completedCheckbox = document.getElementsByClassName("completedCheckbox");
 var completedTasksCounter = document.getElementById("counter");
-var deleteAllButtons = document.getElementsByClassName("deleteAll");
+var save = document.getElementById("save");
+var currentTaskObject;
+
 var title = document.getElementById("title");
 var category = document.getElementById("category");
 var content = document.getElementById("content");
 var time = document.getElementById("time");
 var data = document.getElementById("data");
+var editTitle = document.getElementById("titleEdit");
+var editCategory = document.getElementById("categoryEdit");
+var editContent = document.getElementById("contentEdit");
+var editTime = document.getElementById("timeEdit");
+var editData = document.getElementById("dataEdit");
 var zadania = [];
 
 function Task(title, description, category, time, date) {
@@ -26,24 +34,11 @@ function Task(title, description, category, time, date) {
     this.date = date;
     this.completed = false;
 }
-
-addButton.addEventListener("click", function (e) {
-    addForm.style.display = "block";
-    addForm.classList.add("show");
+function clear(el) {
+    el.classList.add("hide");
     setTimeout(function () {
-        addForm.classList.remove("show");
-    }, 500)
-}, false);
-
-closeButton.addEventListener("click", function () {
-    clearAddForm();
-}, false);
-
-function clearAddForm() {
-    addForm.classList.add("hide");
-    setTimeout(function () {
-        addForm.style.display = "none";
-        addForm.classList.remove("hide");
+        el.style.display = "none";
+        el.classList.remove("hide");
     }, 500);
     var inputs = document.getElementsByClassName("addFormInputs");
     for(var i = 0; i < inputs.length; i++){
@@ -51,8 +46,6 @@ function clearAddForm() {
     }
     showTasks();
 }
-
-
 
 function showTasks() {
     lista.innerHTML =   "";
@@ -62,7 +55,6 @@ function showTasks() {
             continue;
         }
         var el = document.createElement("li");
-
         el.setAttribute("data-index-number", i);
         var completed = document.createElement("input");
         completed.type = "checkbox";
@@ -72,8 +64,8 @@ function showTasks() {
         var labelForCheckbox = document.createElement("label");
         labelForCheckbox.setAttribute("for", idy);
         var label = document.createElement("label");
+        label.classList.add("task");
         var deleteButton = document.createElement("button");
-        // deleteButton.textContent = "Delete";
         deleteButton.innerHTML = '<i class="fa fa-trash deleteButton" aria-hidden="true"></i>';
         if(zadania[i].title){
             label.textContent = zadania[i].title;
@@ -114,6 +106,28 @@ function updateHeadersForList() {
     }
 }
 
+function updateCompletedTaskaCounter() {
+    var allTask = 0;
+    var completedTasks = 0;
+    for(var i = 0; i < zadania.length; i++){
+        if(zadania[i]){
+            allTask++;
+            if(zadania[i].completed){
+                completedTasks++;
+            }
+        }
+    }
+    completedTasksCounter.textContent = "Completed tasks: " + completedTasks + "/" + allTask;
+}
+
+function showEditForm(taskObject) {
+    editTitle.value = taskObject.title;
+    editCategory.value = taskObject.category;
+    editContent.value = taskObject.description;
+    editTime.value = taskObject.time;
+    editData.value = taskObject.date;
+}
+
 document.addEventListener("click", function (e) {
    if(e.target && e.target.classList.contains("deleteButton")){
        e.target.parentNode.parentNode.classList.add("hide");
@@ -149,8 +163,7 @@ addTask.addEventListener("click", function (e) {
     if(title.value || content.value){
         var task = new Task(title.value, content.value, category.value, time.value, data.value);
         zadania.push(task);
-        console.log(zadania);
-        clearAddForm();
+        clear(addForm);
     }
 });
 
@@ -192,25 +205,47 @@ document.addEventListener("click", function (e) {
     }
 }, false);
 
-
-function updateCompletedTaskaCounter() {
-    var allTask = 0;
-    var completedTasks = 0;
-    for(var i = 0; i < zadania.length; i++){
-        if(zadania[i]){
-            allTask++;
-            if(zadania[i].completed){
-                completedTasks++;
-            }
-        }
+document.addEventListener("click", function (e) {
+    if(e.target && e.target.classList.contains("task")){
+        var indexOfObject = e.target.parentNode.dataset.indexNumber;
+        currentTaskObject = indexOfObject;
+        editForm.style.display = "block";
+        editForm.classList.add("show");
+        setTimeout(function () {
+            editForm.classList.remove("show");
+        }, 500)
+        showEditForm(zadania[indexOfObject]);
     }
-    completedTasksCounter.textContent = "Completed tasks: " + completedTasks + "/" + allTask;
-}
+}, false);
+
+addButton.addEventListener("click", function (e) {
+    addForm.style.display = "block";
+    addForm.classList.add("show");
+    setTimeout(function () {
+        addForm.classList.remove("show");
+    }, 500)
+}, false);
+
+save.addEventListener("click", function (e) {
+    e.preventDefault();
+    zadania[currentTaskObject].title = editTitle.value;
+    zadania[currentTaskObject].category = editCategory.value;
+    zadania[currentTaskObject].description = editContent.value;
+    zadania[currentTaskObject].time = editTime.value;
+    zadania[currentTaskObject].date = editData.value;
+    clear(editForm);
+}, false);
+
+addFormCloseButton.addEventListener("click", function () {
+    clear(addForm);
+}, false);
+editFormCloseButton.addEventListener("click", function () {
+    clear(editForm);
+}, false);
 
 //animacje znikania przesuwanych zadań
 //edytowanie zadań, kolory
 //sortowanie
 //kategorie
-//dodać przyciski usuń wszystko, completed wszystko,
 //zwijanie tasks oraz completed tasks
 //local storage
