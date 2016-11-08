@@ -31,27 +31,19 @@ var zadania = [];
 
 function hideList(list) {
     if(list.style.display == "block"){
-        list.classList.add("hide");
+        list.classList.add("zwinC");
         setTimeout(function () {
             list.style.display = "none";
-            list.classList.remove("hide");
+            list.classList.remove("zwinC");
         }, 500);
     } else if (list.style.display == "none"){
         list.style.display = "block";
-        list.classList.add("show");
+        list.classList.add("rozwinC");
         setTimeout(function () {
-            list.classList.remove("show");
+            list.classList.remove("rozwinC");
         }, 500)
     }
 }
-
-tasksHeader.addEventListener("click", function (e) {
-    hideList(lista);
-}, false);
-
-completedTasksHeader.addEventListener("click", function (e) {
-    hideList(completedList);
-}, false);
 
 function Task(title, description, category, time, date) {
     this.title = title;
@@ -62,10 +54,10 @@ function Task(title, description, category, time, date) {
     this.completed = false;
 }
 function clear(el) {
-    el.classList.add("hide");
+    el.classList.add("zwinC");
     setTimeout(function () {
         el.style.display = "none";
-        el.classList.remove("hide");
+        el.classList.remove("zwinC");
     }, 500);
     var inputs = document.getElementsByClassName("addFormInputs");
     for(var i = 0; i < inputs.length; i++){
@@ -155,6 +147,14 @@ function showEditForm(taskObject) {
     editData.value = taskObject.date;
 }
 
+tasksHeader.addEventListener("click", function (e) {
+    hideList(lista);
+}, false);
+
+completedTasksHeader.addEventListener("click", function (e) {
+    hideList(completedList);
+}, false);
+
 document.addEventListener("click", function (e) {
    if(e.target && e.target.classList.contains("deleteButton")){
        e.target.parentNode.parentNode.classList.add("hide");
@@ -237,9 +237,9 @@ document.addEventListener("click", function (e) {
         var indexOfObject = e.target.parentNode.dataset.indexNumber;
         currentTaskObject = indexOfObject;
         editForm.style.display = "block";
-        editForm.classList.add("show");
+        editForm.classList.add("rozwinC");
         setTimeout(function () {
-            editForm.classList.remove("show");
+            editForm.classList.remove("rozwinC");
         }, 500)
         showEditForm(zadania[indexOfObject]);
     }
@@ -247,9 +247,9 @@ document.addEventListener("click", function (e) {
 
 addButton.addEventListener("click", function (e) {
     addForm.style.display = "block";
-    addForm.classList.add("show");
+    addForm.classList.add("rozwinC");
     setTimeout(function () {
-        addForm.classList.remove("show");
+        addForm.classList.remove("rozwinC");
     }, 500)
 }, false);
 
