@@ -52,7 +52,7 @@
       border: none;
     }
     input[type="submit"]  {
-      margin-top: 200px;
+      margin-top: 80px;
       padding: 30px;
       border: none;
       width: 100%;
@@ -62,5 +62,43 @@
         background-color: darken($header-color, 0%);
       }
     }
+
+    .colors {
+      margin: 20px 10px 0 10px;
+      display: flex;
+      justify-content: space-between;
+
+      div   {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+      }
+      .picked {
+        border: 2px solid #333;
+      }
+      div:nth-child(1)  {
+        background-color: darken(white, 10%);
+      }
+      div:nth-child(2){
+        background-color: #AF222B;
+      }
+      div:nth-child(3){
+        background-color: #CA7032;
+      }
+      div:nth-child(4){
+        background-color: #F0D493;
+      }
+      div:nth-child(5){
+        background-color: #69A364;
+      }
+      div:nth-child(6){
+        background-color: #94D4BD;
+      }
+      div:nth-child(7){
+        background-color: #029AC6;
+      }
+    }
+
+
   }
 }

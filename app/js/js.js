@@ -12,9 +12,13 @@ var addTask = document.getElementById("addTask");
 var completedCheckbox = document.getElementsByClassName("completedCheckbox");
 var completedTasksCounter = document.getElementById("counter");
 var save = document.getElementById("save");
-var tasksHeader = document.getElementById("tasksHeader");
-var completedTasksHeader = document.getElementById("completedTasksHeader");
+var tasksHeader = document.getElementById("tasksHeaderH2");
+var completedTasksHeader = document.getElementById("completedTasksHeaderH2");
+
+var colorsDivs = document.querySelectorAll(".colors div");
+
 var currentTaskObject;
+var pickedColor;
 
 var title = document.getElementById("title");
 var category = document.getElementById("category");
@@ -28,6 +32,30 @@ var editTime = document.getElementById("timeEdit");
 var editData = document.getElementById("dataEdit");
 var zadania = [];
 
+
+
+for(var t = 0; t < colorsDivs.length; t++){
+    colorsDivs[t].addEventListener("click", function (e) {
+        removePickedFromColors();
+        e.target.classList.add("picked");
+        pickedColor = e.target.className;
+        pickedColor = pickedColor.slice(0, pickedColor.indexOf(" "));
+    }, false)
+}
+
+
+function removePickedFromColors() {
+    for(var w = 0; w <colorsDivs.length; w++){
+        if(colorsDivs[w].classList.contains("picked")){
+            pickedColor = undefined;
+            colorsDivs[w].classList.remove("picked")
+        }
+    }
+}
+
+function setColor(el) {
+    el
+}
 
 function hideList(list) {
     if(list.style.display == "block"){
@@ -45,15 +73,16 @@ function hideList(list) {
     }
 }
 
-function Task(title, description, category, time, date) {
+function Task(title, description, category, time, date, color) {
     this.title = title;
     this.description = description;
     this.category = category;
     this.time = time;
     this.date = date;
+    this.color  =   color;
     this.completed = false;
 }
-function clear(el) {
+function clearForm(el) {
     el.classList.add("zwinC");
     setTimeout(function () {
         el.style.display = "none";
@@ -63,6 +92,7 @@ function clear(el) {
     for(var i = 0; i < inputs.length; i++){
         inputs[i].value = "";
     }
+    removePickedFromColors();
     showTasks();
 }
 
@@ -74,6 +104,9 @@ function showTasks() {
             continue;
         }
         var el = document.createElement("li");
+        if(zadania[i].color){
+            el.className = zadania[i].color;
+        }
         el.setAttribute("data-index-number", i);
         var completed = document.createElement("input");
         completed.type = "checkbox";
@@ -145,14 +178,24 @@ function showEditForm(taskObject) {
     editContent.value = taskObject.description;
     editTime.value = taskObject.time;
     editData.value = taskObject.date;
+
+    for(var u = 0; u < colorsDivs.length; u++){
+        if(colorsDivs[u].classList.contains(taskObject.color)){
+            colorsDivs[u].classList.add("picked");
+        }
+    }
 }
 
 tasksHeader.addEventListener("click", function (e) {
-    hideList(lista);
+    if(e.target == tasksHeader){
+        hideList(lista);
+    }
 }, false);
 
 completedTasksHeader.addEventListener("click", function (e) {
-    hideList(completedList);
+    if(e.target == completedTasksHeader){
+        hideList(completedList);
+    }
 }, false);
 
 document.addEventListener("click", function (e) {
@@ -188,11 +231,11 @@ document.addEventListener("click", function (e) {
 addTask.addEventListener("click", function (e) {
     e.preventDefault();
     if(title.value || content.value){
-        var task = new Task(title.value, content.value, category.value, time.value, data.value);
+        var task = new Task(title.value, content.value, category.value, time.value, data.value, pickedColor);
         zadania.push(task);
-        clear(addForm);
+        clearForm(addForm);
     }
-});
+}, false);
 
 document.addEventListener("click", function (e) {
     if(e.target && e.target.classList.contains("deleteAll")){
@@ -210,6 +253,10 @@ document.addEventListener("click", function (e) {
                     delete zadania[i];
                 }
             }
+            setTimeout(function () {
+                lista.style.display = "block";
+            }, 501);
+
         } else if(e.target.parentNode == document.getElementById("completedTasksHeader")){
             var lisy2 = document.getElementsByClassName("lisCom");
             for(var m = 0; m < lisy2.length; m++){
@@ -224,6 +271,10 @@ document.addEventListener("click", function (e) {
                     delete zadania[j];
                 }
             }
+            setTimeout(function () {
+                completedList.style.display = "block";
+            }, 501);
+
         }
         setTimeout(function () {
             updateHeadersForList();
@@ -260,21 +311,21 @@ save.addEventListener("click", function (e) {
     zadania[currentTaskObject].description = editContent.value;
     zadania[currentTaskObject].time = editTime.value;
     zadania[currentTaskObject].date = editData.value;
-    clear(editForm);
+    zadania[currentTaskObject].color = pickedColor;
+    clearForm(editForm);
 }, false);
 
 addFormCloseButton.addEventListener("click", function () {
-    clear(addForm);
+    clearForm(addForm);
 }, false);
 editFormCloseButton.addEventListener("click", function () {
-    clear(editForm);
+    clearForm(editForm);
 }, false);
 
 
 
 
 //animacje znikania przesuwanych zadań
-//kolory
 //sortowanie
 //kategorie
 //local storage
