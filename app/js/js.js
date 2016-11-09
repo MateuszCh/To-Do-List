@@ -14,11 +14,16 @@ var completedTasksCounter = document.getElementById("counter");
 var save = document.getElementById("save");
 var tasksHeader = document.getElementById("tasksHeaderH2");
 var completedTasksHeader = document.getElementById("completedTasksHeaderH2");
-
+var categoryList = document.getElementById("listOfCategories");
 var colorsDivs = document.querySelectorAll(".colors div");
+var lisy = document.getElementsByClassName("lisUn");
+var lisy2 = document.getElementsByClassName("lisCom");
+var taski = document.getElementsByClassName("listy");
 
 var currentTaskObject;
 var pickedColor;
+var currentCategory;
+var cat;
 
 var title = document.getElementById("title");
 var category = document.getElementById("category");
@@ -31,6 +36,7 @@ var editContent = document.getElementById("contentEdit");
 var editTime = document.getElementById("timeEdit");
 var editData = document.getElementById("dataEdit");
 var zadania = [];
+var listOfCategories = [];
 
 
 
@@ -44,6 +50,52 @@ for(var t = 0; t < colorsDivs.length; t++){
 }
 
 
+function makeListOfCategories() {
+    listOfCategories = [];
+    for(var z = 0; z <zadania.length; z++){
+        if(zadania[z] && zadania[z].category){
+            if(listOfCategories.indexOf(zadania[z].category) < 0){
+                listOfCategories.push(zadania[z].category);
+            }
+        }
+    }
+    if(listOfCategories[0]){
+        listOfCategories.unshift("all");
+    }
+}
+
+function showListOfCategories() {
+    makeListOfCategories();
+    categoryList.innerHTML = "";
+    for (var a = 0; a <listOfCategories.length; a++){
+        var el = document.createElement("li");
+        el.classList.add("categories");
+        el.textContent = listOfCategories[a];
+        categoryList.appendChild(el);
+    }
+}
+
+function showTasksOfCategory(cat) {
+    for(var h = 0; h < taski.length; h++){
+        taski[h].classList.remove("schow");
+        if(cat != "all"){
+            var indexOfObject = taski[h].dataset.indexNumber;
+            if(!zadania[indexOfObject].category || (zadania[indexOfObject].category && zadania[indexOfObject].category != cat)){
+                taski[h].classList.add("schow");
+            }
+        }
+    }
+}
+
+document.addEventListener("click", function (e) {
+    if(e.target && e.target.classList.contains("categories")){
+        cat = e.target.textContent;
+        showTasksOfCategory(cat);
+
+    }
+}, false);
+
+
 function removePickedFromColors() {
     for(var w = 0; w <colorsDivs.length; w++){
         if(colorsDivs[w].classList.contains("picked")){
@@ -53,9 +105,6 @@ function removePickedFromColors() {
     }
 }
 
-function setColor(el) {
-    el
-}
 
 function hideList(list) {
     if(list.style.display == "block"){
@@ -108,6 +157,7 @@ function showTasks() {
             el.className = zadania[i].color;
         }
         el.setAttribute("data-index-number", i);
+        el.classList.add("listy");
         var completed = document.createElement("input");
         completed.type = "checkbox";
         completed.classList.add("completedCheckbox");
@@ -138,7 +188,8 @@ function showTasks() {
         }
     }
     updateHeadersForList();
-    updateCompletedTaskaCounter()
+    updateCompletedTaskaCounter();
+    showListOfCategories();
 }
 
 function updateHeadersForList() {
@@ -186,6 +237,31 @@ function showEditForm(taskObject) {
     }
 }
 
+function deleteAllCategoryTasks(taski, taskiLista) {
+    for(var p = 0; p <taski.length; p++){
+        var indexOfObject = taski[p].dataset.indexNumber;
+        if(!cat || cat == "all"){
+            taski[p].classList.add("hide");
+            setTimeout(function () {
+                taskiLista.innerHTML = "";
+            }, 500);
+            delete zadania[indexOfObject];
+        } else if (cat) {
+            if(zadania[indexOfObject].category == cat){
+                taski[p].classList.add("hide");
+                var to = taski[p];
+                setTimeout(function () {
+                    taskiLista.removeChild(to);
+                }, 500);
+                delete zadania[indexOfObject];
+            }
+        }
+    }
+    setTimeout(function () {
+        taskiLista.style.display = "block";
+    }, 501);
+}
+
 tasksHeader.addEventListener("click", function (e) {
     if(e.target == tasksHeader){
         hideList(lista);
@@ -204,8 +280,6 @@ document.addEventListener("click", function (e) {
        var indexOfObject = e.target.parentNode.parentNode.dataset.indexNumber;
        delete zadania[indexOfObject];
        setTimeout(function () {
-           // addForm.style.display = "none";
-           // addForm.classList.remove("hide");
            showTasks();
        }, 500);
 
@@ -231,54 +305,26 @@ document.addEventListener("click", function (e) {
 addTask.addEventListener("click", function (e) {
     e.preventDefault();
     if(title.value || content.value){
-        var task = new Task(title.value, content.value, category.value, time.value, data.value, pickedColor);
+        var tempCategory = category.value.toLowerCase();
+        var task = new Task(title.value, content.value, tempCategory, time.value, data.value, pickedColor);
         zadania.push(task);
         clearForm(addForm);
     }
 }, false);
 
+
+
 document.addEventListener("click", function (e) {
     if(e.target && e.target.classList.contains("deleteAll")){
         if(e.target.parentNode == document.getElementById("tasksHeader")){
-            var lisy = document.getElementsByClassName("lisUn");
-            for(var p = 0; p < lisy.length; p++){
-                lisy[p].classList.add("hide");
-            }
-            setTimeout(function () {
-                lista.innerHTML = "";
-
-            }, 500);
-            for(var i = 0; i < zadania.length; i++){
-                if(zadania[i] && zadania[i].completed == false){
-                    delete zadania[i];
-                }
-            }
-            setTimeout(function () {
-                lista.style.display = "block";
-            }, 501);
-
+            deleteAllCategoryTasks(lisy, lista, false);
         } else if(e.target.parentNode == document.getElementById("completedTasksHeader")){
-            var lisy2 = document.getElementsByClassName("lisCom");
-            for(var m = 0; m < lisy2.length; m++){
-                lisy2[m].classList.add("hide");
-            }
-            setTimeout(function () {
-                completedList.innerHTML = "";
-
-            }, 500);
-            for(var j = 0; j < zadania.length; j++){
-                if(zadania[j] && zadania[j].completed == true){
-                    delete zadania[j];
-                }
-            }
-            setTimeout(function () {
-                completedList.style.display = "block";
-            }, 501);
-
+            deleteAllCategoryTasks(lisy2, completedList, true);
         }
         setTimeout(function () {
             updateHeadersForList();
-            updateCompletedTaskaCounter()
+            updateCompletedTaskaCounter();
+            showListOfCategories();
         }, 501);
     }
 }, false);
@@ -306,26 +352,28 @@ addButton.addEventListener("click", function (e) {
 
 save.addEventListener("click", function (e) {
     e.preventDefault();
+    var tempCategory = editCategory.value.toLowerCase();
     zadania[currentTaskObject].title = editTitle.value;
-    zadania[currentTaskObject].category = editCategory.value;
+    zadania[currentTaskObject].category = tempCategory;
     zadania[currentTaskObject].description = editContent.value;
     zadania[currentTaskObject].time = editTime.value;
     zadania[currentTaskObject].date = editData.value;
-    zadania[currentTaskObject].color = pickedColor;
+    if(pickedColor){
+        zadania[currentTaskObject].color = pickedColor;
+    }
     clearForm(editForm);
+    if(cat){
+        showTasksOfCategory(cat);
+    }
 }, false);
 
 addFormCloseButton.addEventListener("click", function () {
     clearForm(addForm);
+    showTasksOfCategory(cat);
 }, false);
 editFormCloseButton.addEventListener("click", function () {
     clearForm(editForm);
+    showTasksOfCategory(cat);
 }, false);
 
-
-
-
-//animacje znikania przesuwanych zadań
-//sortowanie
-//kategorie
 //local storage

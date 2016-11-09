@@ -4,6 +4,9 @@
   margin: 0;
   padding: 10px 10px;
 
+  .schow {
+    display: none;
+  }
 
   li {
     padding: 20px;
@@ -17,6 +20,10 @@
     align-items: center;
     justify-content: space-between;
     font-size: 1.25rem;
+    transition: background-color .5s ease,
+    box-shadow .5s ease;
+
+
 
     label:nth-child(3) {
       flex-grow: 1;
@@ -51,7 +58,7 @@
 }
 
 .list {
-  margin-top: 90px;
+  //margin-top: 90px;
   margin-bottom: 60px;
 }
 
