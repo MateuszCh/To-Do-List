@@ -299,6 +299,7 @@ document.addEventListener("click", function (e) {
             zadania[indexOfObject].completed = false;
         }
         showTasks();
+        showTasksOfCategory(cat);
     }
 }, false);
 

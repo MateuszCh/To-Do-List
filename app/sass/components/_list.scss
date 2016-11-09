@@ -28,6 +28,12 @@
     label:nth-child(3) {
       flex-grow: 1;
       padding-left: 10px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    i   {
+      padding-left: 10px;
     }
 
     &:hover {
