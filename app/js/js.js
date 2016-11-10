@@ -78,7 +78,7 @@ function showListOfCategories() {
 function showTasksOfCategory(cat) {
     for(var h = 0; h < taski.length; h++){
         taski[h].classList.remove("schow");
-        if(cat != "all"){
+        if(cat != "all" && cat){
             var indexOfObject = taski[h].dataset.indexNumber;
             if(!zadania[indexOfObject].category || (zadania[indexOfObject].category && zadania[indexOfObject].category != cat)){
                 taski[h].classList.add("schow");

@@ -66,5 +66,12 @@
 .list {
   //margin-top: 90px;
   margin-bottom: 60px;
+  @include mq-not-mobile  {
+    width: 70%;
+    margin: 0 auto;
+  }
+  @include  laptops {
+    width: 50%;
+  }
 }
 

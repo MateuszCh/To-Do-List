@@ -1,6 +1,6 @@
 .addForm {
   display: none;
-  position: fixed;
+  position: absolute;
   top: 0;
   width: 100%;
   height: 100vh;
@@ -8,11 +8,12 @@
   z-index: 1000;
   font-family: 'Work Sans', sans-serif;
   color: $header-text-color;
+  overflow: auto;
 
   form  {
     width: 80%;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 30px;
 
     .pyk  {
       display: flex;
@@ -21,13 +22,14 @@
         //flex-basis: 100%;
         display: flex;
         flex-direction: column;
-        flex-grow: 1;
+        width: 50%;
 
         label,
         input {
-          flex-basis: 50%;
+          //flex-basis: 50%;
           border: none;
           padding: 2px;
+          width: 100%;
         }
       }
     }
@@ -37,11 +39,16 @@
       border: none;
     }
 
+    //input[type="time"],
+    //input[type="date"]  {
+    //  padding: 3px;
+    //  height: 30px;
+    //}
 
     textarea  {
       width: 100%;
       resize: none;
-      height: 300px;
+      height: 250px;
       border: none;
       padding: 0;
     }
@@ -52,8 +59,8 @@
       border: none;
     }
     input[type="submit"]  {
-      margin-top: 80px;
-      padding: 30px;
+      margin-top: 10px;
+      padding: 27px;
       border: none;
       width: 100%;
       color: $header-text-color;
