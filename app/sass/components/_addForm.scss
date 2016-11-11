@@ -8,18 +8,29 @@
   z-index: 1000;
   font-family: 'Work Sans', sans-serif;
   color: $header-text-color;
-  overflow: auto;
+
+
 
   @include laptops  {
     display: block;
     position: fixed;
-    //height: 778px;
-    height: calc(100vh - 145px);
-    top: 81px;
-    right: 100px;
-    width: 30%;
-  }
+    height: 520px;
+    top: 104px;
+    right: 10%;
+    margin-right: 12px;
+    width: 25%;
+    background-color: darken(white, 25%);
+    box-shadow: 1px 1px 2px 2px darken(white, 35%);
+    color: $header-color;
+    border-radius: 4px;
+    text-align: center;
 
+
+  }
+  //@include sidebar  {
+  //  height: 55vh;
+  //  overflow: auto;
+  //}
 
   i {
     @include laptops  {
@@ -37,16 +48,24 @@
     }
     @include laptops  {
       width: 90%;
+      margin-top: 10px;
     }
 
     .pyk  {
       display: flex;
+      @include laptops  {
+        flex-direction: column;
+      }
 
       div   {
         //flex-basis: 100%;
         display: flex;
         flex-direction: column;
         width: 50%;
+        @include laptops  {
+          width: 100%;
+        }
+
 
         label,
         input {
@@ -61,13 +80,14 @@
     input[type="text"]  {
       width: 100%;
       border: none;
+      padding-left: 1px;
     }
 
     input[type="time"],
     input[type="date"]  {
       padding: 3px;
       height: 30px;
-      text-align: center;
+      //text-align: center;
     }
 
     textarea  {
@@ -76,6 +96,10 @@
       height: 250px;
       border: none;
       padding: 0;
+      padding-left: 1px;
+      @include laptops  {
+        height: 150px;
+      }
     }
 
     fieldset  {
@@ -93,17 +117,12 @@
       &:hover {
         background-color: darken($header-color, 0%);
       }
-
-      @include mq-not-mobile  {
-        margin-top: 100px;
-      }
-
     }
 
     .colors {
       margin: 20px 10px 0 10px;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
 
       div   {
         width: 35px;

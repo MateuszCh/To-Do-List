@@ -10,3 +10,9 @@
   }
 }
 
+@mixin sidebar  {
+  @media all and (max-height: 710px)  {
+    @content;
+  }
+}
+

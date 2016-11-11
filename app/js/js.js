@@ -91,7 +91,6 @@ document.addEventListener("click", function (e) {
     if(e.target && e.target.classList.contains("categories")){
         cat = e.target.textContent;
         showTasksOfCategory(cat);
-
     }
 }, false);
 
@@ -187,10 +186,13 @@ function showTasks() {
         }
         var labelForTime = document.createElement("label");
         labelForTime.textContent = zadania[i].time;
+        labelForTime.classList.add("task");
         var category = document.createElement("label");
         category.textContent = zadania[i].category;
+        category.classList.add("task");
         var labelForDate = document.createElement("label");
         labelForDate.textContent = zadania[i].date;
+        labelForDate.classList.add("task");
         el.appendChild(completed);
         el.appendChild(labelForCheckbox);
         el.appendChild(label);
@@ -399,3 +401,4 @@ editFormCloseButton.addEventListener("click", function () {
 
 //local storage
 //validate data i time
+//znikanie addform przy rozszerzaniu window

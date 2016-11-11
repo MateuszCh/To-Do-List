@@ -26,6 +26,7 @@
       background-color: lighten($header-color, 10%);
       box-shadow: 1px 1px 2px 2px $header-color;
       transition: background-color .5s ease;
+      cursor: pointer;
 
       &:hover {
         background-color: $header-color;
