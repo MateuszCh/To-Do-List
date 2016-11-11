@@ -146,13 +146,27 @@ function clearForm(el) {
     showTasks();
 }
 
-window.addEventListener("resize", function () {
-    if(window.matchMedia("(min-width: 1200px)").matches){
-        addForm.style.display = "block";
-    }   else {
-        addForm.style.display = "none";
-        clearForm(addForm);
+var previousSize = window.innerWidth;
+var currentSize;
+
+function changingSizeOfWindow() {
+    currentSize = window.innerWidth;
+    if(currentSize > previousSize){
+        if(window.matchMedia("(min-width: 1200px)").matches){
+            addForm.style.display = "block";
+        }
+    } else if(currentSize < previousSize){
+        if(window.matchMedia("(min-width: 1200px)").matches){
+            addForm.style.display = "block";
+        } else if((previousSize > 1200 && currentSize < 1200) || previousSize == 1200) {
+            addForm.style.display = "none";
+        }
     }
+    previousSize = currentSize;
+}
+
+window.addEventListener("resize", function () {
+    changingSizeOfWindow();
 }, false);
 
 function showTasks() {
