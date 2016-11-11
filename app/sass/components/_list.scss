@@ -23,13 +23,54 @@
     transition: background-color .5s ease,
     box-shadow .5s ease;
 
-
+  label:nth-of-type(n+2)  {
+    cursor: pointer;
+    text-align: left;
+    //border: 1px solid black;
+  }
 
     label:nth-child(3) {
-      flex-grow: 1;
+      width: 100%;
+      //flex-grow: 4;
       padding-left: 10px;
-      cursor: pointer;
+      //cursor: pointer;
       overflow: hidden;
+      @include mq-not-mobile  {
+        width: 60%;
+      }
+      @include laptops  {
+        width: 40%;
+      }
+    }
+    label:nth-child(4)  {
+      //flex-grow: 2;
+      display: none;
+      @include mq-not-mobile  {
+        font-size: .8em;
+        display: block;
+        width: 40%;
+      }
+      @include laptops  {
+        width: 20%;
+      }
+    }
+    label:nth-child(5)  {
+      //flex-grow: 1;
+      display: none;
+      @include laptops  {
+        font-size: .8em;
+        display: block;
+        width: 10%;
+      }
+    }
+    label:nth-child(6)  {
+      //flex-grow: 1;
+      display: none;
+      @include laptops  {
+        font-size: .8em;
+        display: block;
+        width: 30%;
+      }
     }
 
     i   {
@@ -72,6 +113,8 @@
   }
   @include  laptops {
     width: 50%;
+    margin-left: 10%;
+    margin-bottom: 50px;
   }
 }
 

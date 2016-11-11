@@ -12,6 +12,11 @@
     font-size: 1rem;
     font-family: 'Work Sans', sans-serif;
 
+    @include laptops  {
+      margin-left: 10%;
+      width: 50%;
+    }
+
     li  {
       border-radius: 2px;
       padding: 2px 5px;

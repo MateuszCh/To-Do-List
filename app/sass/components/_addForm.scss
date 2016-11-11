@@ -10,10 +10,34 @@
   color: $header-text-color;
   overflow: auto;
 
+  @include laptops  {
+    display: block;
+    position: fixed;
+    //height: 778px;
+    height: calc(100vh - 145px);
+    top: 81px;
+    right: 100px;
+    width: 30%;
+  }
+
+
+  i {
+    @include laptops  {
+      display: none;
+    }
+  }
+
   form  {
     width: 80%;
     margin: 0 auto;
     margin-top: 30px;
+    @include mq-not-mobile  {
+      width: 40%;
+      margin-top: 100px;
+    }
+    @include laptops  {
+      width: 90%;
+    }
 
     .pyk  {
       display: flex;
@@ -39,11 +63,12 @@
       border: none;
     }
 
-    //input[type="time"],
-    //input[type="date"]  {
-    //  padding: 3px;
-    //  height: 30px;
-    //}
+    input[type="time"],
+    input[type="date"]  {
+      padding: 3px;
+      height: 30px;
+      text-align: center;
+    }
 
     textarea  {
       width: 100%;
@@ -68,6 +93,11 @@
       &:hover {
         background-color: darken($header-color, 0%);
       }
+
+      @include mq-not-mobile  {
+        margin-top: 100px;
+      }
+
     }
 
     .colors {

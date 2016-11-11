@@ -32,5 +32,9 @@ footer  {
     &:hover {
       background-color: lighten($header-color, 10%);
     }
+
+    @include laptops  {
+      display: none;
+    }
   }
 }

@@ -1,3 +1,111 @@
 .editForm {
-  @extend .addForm;
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: darken($header-color, 10%);
+  z-index: 1000;
+  font-family: 'Work Sans', sans-serif;
+  color: $header-text-color;
+  overflow: auto;
+
+  form  {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 30px;
+
+    .pyk  {
+      display: flex;
+
+      div   {
+        //flex-basis: 100%;
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+
+        label,
+        input {
+          //flex-basis: 50%;
+          border: none;
+          padding: 2px;
+          width: 100%;
+        }
+      }
+    }
+
+    input[type="text"]  {
+      width: 100%;
+      border: none;
+    }
+
+    //input[type="time"],
+    //input[type="date"]  {
+    //  padding: 3px;
+    //  height: 30px;
+    //}
+
+    textarea  {
+      width: 100%;
+      resize: none;
+      height: 250px;
+      border: none;
+      padding: 0;
+    }
+
+    fieldset  {
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+    input[type="submit"]  {
+      margin-top: 10px;
+      padding: 27px;
+      border: none;
+      width: 100%;
+      color: $header-text-color;
+      background-color: lighten($header-color,10%);
+      &:hover {
+        background-color: darken($header-color, 0%);
+      }
+    }
+
+    .colors {
+      margin: 20px 10px 0 10px;
+      display: flex;
+      justify-content: space-between;
+
+      div   {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+      }
+      .picked {
+        border: 2px solid #333;
+      }
+      div:nth-child(1)  {
+        background-color: darken(white, 10%);
+      }
+      div:nth-child(2){
+        background-color: #AF222B;
+      }
+      div:nth-child(3){
+        background-color: #CA7032;
+      }
+      div:nth-child(4){
+        background-color: #F0D493;
+      }
+      div:nth-child(5){
+        background-color: #69A364;
+      }
+      div:nth-child(6){
+        background-color: #94D4BD;
+      }
+      div:nth-child(7){
+        background-color: #029AC6;
+      }
+    }
+
+
+  }
 }

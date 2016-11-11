@@ -132,11 +132,13 @@ function Task(title, description, category, time, date, color) {
     this.completed = false;
 }
 function clearForm(el) {
-    el.classList.add("zwinC");
-    setTimeout(function () {
-        el.style.display = "none";
-        el.classList.remove("zwinC");
-    }, 500);
+    if(window.matchMedia("(max-width: 1119px)").matches || el == editForm){
+        el.classList.add("zwinC");
+        setTimeout(function () {
+            el.style.display = "none";
+            el.classList.remove("zwinC");
+        }, 500);
+    }
     var inputs = document.getElementsByClassName("addFormInputs");
     for(var i = 0; i < inputs.length; i++){
         inputs[i].value = "";
@@ -144,6 +146,15 @@ function clearForm(el) {
     removePickedFromColors();
     showTasks();
 }
+
+window.addEventListener("resize", function () {
+    if(window.matchMedia("(min-width: 1200px)").matches){
+        addForm.style.display = "block";
+    }   else {
+        addForm.style.display = "none";
+        clearForm(addForm);
+    }
+}, false);
 
 function showTasks() {
     lista.innerHTML =   "";
@@ -174,9 +185,18 @@ function showTasks() {
         } else {
             label.textContent = zadania[i].description;
         }
+        var labelForTime = document.createElement("label");
+        labelForTime.textContent = zadania[i].time;
+        var category = document.createElement("label");
+        category.textContent = zadania[i].category;
+        var labelForDate = document.createElement("label");
+        labelForDate.textContent = zadania[i].date;
         el.appendChild(completed);
         el.appendChild(labelForCheckbox);
         el.appendChild(label);
+        el.appendChild(category);
+        el.appendChild(labelForTime);
+        el.appendChild(labelForDate);
         el.appendChild(deleteButton);
         if(zadania[i].completed){
             completedList.appendChild(el);
@@ -378,3 +398,4 @@ editFormCloseButton.addEventListener("click", function () {
 }, false);
 
 //local storage
+//validate data i time
