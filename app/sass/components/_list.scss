@@ -26,29 +26,28 @@
   label:nth-of-type(n+2)  {
     cursor: pointer;
     text-align: left;
+    padding-left: 10px;
     //border: 1px solid black;
+    word-wrap: break-word;
+    overflow: hidden;
   }
 
     label:nth-child(3) {
-      width: 100%;
-      //flex-grow: 4;
-      padding-left: 10px;
-      //cursor: pointer;
-      overflow: hidden;
+      width: 80%;
+      padding-right: 20px;
       @include mq-not-mobile  {
-        width: 60%;
+        width: 50%;
       }
       @include laptops  {
         width: 40%;
       }
     }
     label:nth-child(4)  {
-      //flex-grow: 2;
       display: none;
       @include mq-not-mobile  {
         font-size: .8em;
         display: block;
-        width: 40%;
+        width: 30%;
       }
       @include laptops  {
         width: 20%;
@@ -60,7 +59,7 @@
       @include laptops  {
         font-size: .8em;
         display: block;
-        width: 10%;
+        width: 15%;
       }
     }
     label:nth-child(6)  {
@@ -69,7 +68,7 @@
       @include laptops  {
         font-size: .8em;
         display: block;
-        width: 30%;
+        width: 25%;
       }
     }
 

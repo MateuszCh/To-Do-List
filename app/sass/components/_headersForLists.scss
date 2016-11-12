@@ -53,6 +53,8 @@
 
       label:nth-of-type(n+2)  {
         text-align: left;
+        padding-left: 10px;
+        word-wrap: break-word;
       }
 
       label:nth-child(2)  {
@@ -60,8 +62,9 @@
       }
 
       label:nth-child(3)  {
-        padding-left: 15px;
+        //padding-left: 15px;
         width: 40%;
+        padding-left: 20px;
       }
       label:nth-child(4)  {
         //font-size: .8em;
@@ -69,11 +72,11 @@
       }
       label:nth-child(5)  {
         //font-size: .8em;
-        width: 10%;
+        width: 15%;
       }
       label:nth-child(6)  {
         //font-size: .8em;
-        width: 30%;
+        width: 25%;
       }
       i   {
         padding-left: 10px;
