@@ -1,0 +1,99 @@
+.tasksHeader  {
+  display: none;
+}
+.showHeader  {
+  margin: 0 0;
+  //padding: 0 10px;
+  display: block;
+  align-items: center;
+  color: $header-color;
+
+  section {
+    display: flex;
+    padding-right: 15px;
+    i   {
+      @include laptops  {
+        display: none;
+      }
+    }
+  }
+
+  h2  {
+    padding: 0 10px;
+    color: $header-color;
+    margin: 0;
+    font-family: $fontForText;
+    flex-grow: 1;
+  }
+
+  ul  {
+    list-style: none;
+    margin: 0;
+    padding: 0 10px;
+    display: none;
+    @include laptops{
+      display: block;
+    }
+
+
+    li  {
+      padding: 3px 20px;
+      margin: 10px 0;
+      border-radius: 4px;
+      font-family: $fontForText;
+      color: $header-color;
+      background-color: darken(white, 15%);
+      box-shadow: 1px 1px 2px 2px darken(white, 25%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .8rem;
+      transition: background-color .5s ease,
+      box-shadow .5s ease;
+
+      label:nth-of-type(n+2)  {
+        text-align: left;
+      }
+
+      label:nth-child(2)  {
+        color: darken(white, 15%);
+      }
+
+      label:nth-child(3)  {
+        padding-left: 15px;
+        width: 40%;
+      }
+      label:nth-child(4)  {
+        //font-size: .8em;
+        width: 20%;
+      }
+      label:nth-child(5)  {
+        //font-size: .8em;
+        width: 10%;
+      }
+      label:nth-child(6)  {
+        //font-size: .8em;
+        width: 30%;
+      }
+      i   {
+        padding-left: 10px;
+      }
+      button  {
+        background-color: inherit;
+        border: none;
+        cursor: pointer;
+        &:hover {
+          color: red;
+        }
+      }
+    }
+
+
+
+
+
+
+  }
+
+}
+

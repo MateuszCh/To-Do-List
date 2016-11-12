@@ -2,7 +2,7 @@
 .completedTasks {
   list-style: none;
   margin: 0;
-  padding: 10px 10px;
+  padding: 0 10px;
 
   .schow {
     display: none;
@@ -12,7 +12,7 @@
     padding: 20px;
     margin: 10px 0;
     border-radius: 4px;
-    font-family: 'Work Sans', sans-serif;
+    font-family: $fontForText;
     color: $header-color;
     background-color: darken(white, 10%);
     box-shadow: 1px 1px 2px 2px darken(white, 20%);

@@ -22,7 +22,6 @@ var taski = document.getElementsByClassName("listy");
 
 var currentTaskObject;
 var pickedColor;
-var currentCategory;
 var cat;
 
 var title = document.getElementById("title");
@@ -89,7 +88,12 @@ function showTasksOfCategory(cat) {
 
 document.addEventListener("click", function (e) {
     if(e.target && e.target.classList.contains("categories")){
+        var markedCategory = document.getElementsByClassName("markedCategory")[0];
+        if(markedCategory){
+            markedCategory.classList.remove("markedCategory");
+        }
         cat = e.target.textContent;
+        e.target.classList.add("markedCategory");
         showTasksOfCategory(cat);
     }
 }, false);
@@ -353,9 +357,11 @@ addTask.addEventListener("click", function (e) {
 
 document.addEventListener("click", function (e) {
     if(e.target && e.target.classList.contains("deleteAll")){
-        if(e.target.parentNode == document.getElementById("tasksHeader")){
+        if(e.target.parentNode.parentNode.parentNode.parentNode == document.getElementById("tasksHeader") ||
+        e.target.parentNode.parentNode == document.getElementById("tasksHeader")){
             deleteAllCategoryTasks(lisy, lista, false);
-        } else if(e.target.parentNode == document.getElementById("completedTasksHeader")){
+        } else if(e.target.parentNode.parentNode.parentNode.parentNode == document.getElementById("completedTasksHeader") ||
+        e.target.parentNode.parentNode == document.getElementById("completedTasksHeader")){
             deleteAllCategoryTasks(lisy2, completedList, true);
         }
         setTimeout(function () {
@@ -414,5 +420,3 @@ editFormCloseButton.addEventListener("click", function () {
 }, false);
 
 //local storage
-//validate data i time
-//znikanie addform przy rozszerzaniu window

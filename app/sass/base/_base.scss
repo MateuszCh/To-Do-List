@@ -6,23 +6,6 @@ body  {
   background-color: $header-text-color;
 }
 
-section > h2  {
-  color: $header-color;
-  margin: 0;
-  font-family: 'Work Sans', sans-serif;
-  flex-grow: 1;
-}
-.tasksHeader  {
-  display: none;
-}
-.showHeader  {
-  margin: 0 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: $header-color;
-}
-
 section section:nth-child(2)  {
   margin-top: 20px;
 }
