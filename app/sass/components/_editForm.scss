@@ -1,6 +1,6 @@
 .editForm {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   height: 100vh;
@@ -57,9 +57,12 @@
     textarea  {
       width: 100%;
       resize: none;
-      height: 250px;
+      height: 150px;
       border: none;
       padding: 0;
+      @include mq-not-mobile  {
+        height: 250px;
+      }
     }
 
     fieldset  {
@@ -69,6 +72,7 @@
     }
     input[type="submit"]  {
       margin-top: 10px;
+      margin-bottom: 10px;
       padding: 27px;
       border: none;
       width: 100%;

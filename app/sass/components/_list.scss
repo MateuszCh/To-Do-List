@@ -106,15 +106,16 @@
 
 .list {
   //margin-top: 90px;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   @include mq-not-mobile  {
     width: 70%;
     margin: 0 auto;
+    margin-bottom: 80px;
   }
   @include  laptops {
     width: 50%;
     margin-left: 10%;
-    margin-bottom: 50px;
+    //margin-bottom: 80px;
   }
 }
 

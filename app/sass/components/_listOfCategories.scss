@@ -12,6 +12,10 @@
     font-size: 1rem;
     font-family: $fontForText;
 
+    @include mq-not-mobile  {
+      width: 70%;
+    }
+
     @include laptops  {
       margin-left: 10%;
       width: 50%;

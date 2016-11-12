@@ -420,3 +420,60 @@ editFormCloseButton.addEventListener("click", function () {
 }, false);
 
 //local storage
+
+
+
+
+window.addEventListener("load", function () {
+    // var json_str = getCookie("mycookie");
+    // if(json_str){
+    //     zadania = JSON.parse(json_str);
+    //     showTasks();
+    // }
+    var zapisane = localStorage.getItem("json_str");
+    if(zapisane){
+        zapisane = JSON.parse(zapisane);
+        zadania = zapisane;
+        showTasks();
+    }
+}, false);
+
+// window.addEventListener("beforeunload", function () {
+//     var json_str = JSON.stringify(zadania);
+//     setCookie("mycookie", json_str);
+//     console.log(json_str);
+// }, false);
+
+
+document.onclick    = function () {
+    // var json_str = JSON.stringify(zadania);
+    // setCookie("mycookie", json_str);
+    // console.log(json_str);
+    localStorage.setItem("json_str", JSON.stringify(zadania));
+};
+
+
+function setCookie(c_name,value,exdays)
+{
+    var exdate=new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var c_value=escape(value) +
+        ((exdays==null) ? "" : ("; expires="+exdate.toUTCString()));
+    document.cookie=c_name + "=" + c_value;
+}
+
+function getCookie(c_name)
+{
+    var i,x,y,ARRcookies=document.cookie.split(";");
+    for (i=0;i<ARRcookies.length;i++)
+    {
+        x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+        y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+        x=x.replace(/^\s+|\s+$/g,"");
+        if (x==c_name)
+        {
+            return unescape(y);
+        }
+    }
+}
+
