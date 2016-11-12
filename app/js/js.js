@@ -37,17 +37,9 @@ var editData = document.getElementById("dataEdit");
 var zadania = [];
 var listOfCategories = [];
 
-
-
-for(var t = 0; t < colorsDivs.length; t++){
-    colorsDivs[t].addEventListener("click", function (e) {
-        removePickedFromColors();
-        e.target.classList.add("picked");
-        pickedColor = e.target.className;
-        pickedColor = pickedColor.slice(0, pickedColor.indexOf(" "));
-    }, false)
+function saveZadania() {
+    localStorage.setItem("json_str", JSON.stringify(zadania));
 }
-
 
 function makeListOfCategories() {
     listOfCategories = [];
@@ -86,19 +78,6 @@ function showTasksOfCategory(cat) {
     }
 }
 
-document.addEventListener("click", function (e) {
-    if(e.target && e.target.classList.contains("categories")){
-        var markedCategory = document.getElementsByClassName("markedCategory")[0];
-        if(markedCategory){
-            markedCategory.classList.remove("markedCategory");
-        }
-        cat = e.target.textContent;
-        e.target.classList.add("markedCategory");
-        showTasksOfCategory(cat);
-    }
-}, false);
-
-
 function removePickedFromColors() {
     for(var w = 0; w <colorsDivs.length; w++){
         if(colorsDivs[w].classList.contains("picked")){
@@ -107,7 +86,6 @@ function removePickedFromColors() {
         }
     }
 }
-
 
 function hideList(list) {
     if(list.style.display == "block"){
@@ -134,6 +112,7 @@ function Task(title, description, category, time, date, color) {
     this.color  =   color;
     this.completed = false;
 }
+
 function clearForm(el) {
     if(window.matchMedia("(max-width: 1119px)").matches || el == editForm){
         el.classList.add("zwinC");
@@ -168,10 +147,6 @@ function changingSizeOfWindow() {
     }
     previousSize = currentSize;
 }
-
-window.addEventListener("resize", function () {
-    changingSizeOfWindow();
-}, false);
 
 function showTasks() {
     lista.innerHTML =   "";
@@ -269,7 +244,6 @@ function showEditForm(taskObject) {
     editContent.value = taskObject.description;
     editTime.value = taskObject.time;
     editData.value = taskObject.date;
-
     for(var u = 0; u < colorsDivs.length; u++){
         if(colorsDivs[u].classList.contains(taskObject.color)){
             colorsDivs[u].classList.add("picked");
@@ -286,6 +260,7 @@ function deleteAllCategoryTasks(taski, taskiLista) {
                 taskiLista.innerHTML = "";
             }, 500);
             delete zadania[indexOfObject];
+            saveZadania();
         } else if (cat) {
             if(zadania[indexOfObject].category == cat){
                 taski[p].classList.add("hide");
@@ -294,12 +269,38 @@ function deleteAllCategoryTasks(taski, taskiLista) {
                     taskiLista.removeChild(to);
                 }, 500);
                 delete zadania[indexOfObject];
+                saveZadania();
             }
         }
     }
     setTimeout(function () {
         taskiLista.style.display = "block";
     }, 501);
+}
+
+window.addEventListener("resize", function () {
+    changingSizeOfWindow();
+}, false);
+
+document.addEventListener("click", function (e) {
+    if(e.target && e.target.classList.contains("categories")){
+        var markedCategory = document.getElementsByClassName("markedCategory")[0];
+        if(markedCategory){
+            markedCategory.classList.remove("markedCategory");
+        }
+        cat = e.target.textContent;
+        e.target.classList.add("markedCategory");
+        showTasksOfCategory(cat);
+    }
+}, false);
+
+for(var t = 0; t < colorsDivs.length; t++){
+    colorsDivs[t].addEventListener("click", function (e) {
+        removePickedFromColors();
+        e.target.classList.add("picked");
+        pickedColor = e.target.className;
+        pickedColor = pickedColor.slice(0, pickedColor.indexOf(" "));
+    }, false)
 }
 
 tasksHeader.addEventListener("click", function (e) {
@@ -327,6 +328,7 @@ document.addEventListener("click", function (e) {
        if(zadania[zadania.length-1] == undefined){
             zadania.pop();
        }
+       saveZadania();
    }
 }, false);
 
@@ -338,6 +340,7 @@ document.addEventListener("click", function (e) {
         } else {
             zadania[indexOfObject].completed = false;
         }
+        saveZadania();
         showTasks();
         showTasksOfCategory(cat);
     }
@@ -350,10 +353,9 @@ addTask.addEventListener("click", function (e) {
         var task = new Task(title.value, content.value, tempCategory, time.value, data.value, pickedColor);
         zadania.push(task);
         clearForm(addForm);
+        saveZadania();
     }
 }, false);
-
-
 
 document.addEventListener("click", function (e) {
     if(e.target && e.target.classList.contains("deleteAll")){
@@ -385,7 +387,7 @@ document.addEventListener("click", function (e) {
     }
 }, false);
 
-addButton.addEventListener("click", function (e) {
+addButton.addEventListener("click", function () {
     addForm.style.display = "block";
     addForm.classList.add("rozwinC");
     setTimeout(function () {
@@ -408,6 +410,7 @@ save.addEventListener("click", function (e) {
     if(cat){
         showTasksOfCategory(cat);
     }
+    saveZadania();
 }, false);
 
 addFormCloseButton.addEventListener("click", function () {
@@ -419,61 +422,18 @@ editFormCloseButton.addEventListener("click", function () {
     showTasksOfCategory(cat);
 }, false);
 
-//local storage
-
-
-
-
 window.addEventListener("load", function () {
-    // var json_str = getCookie("mycookie");
-    // if(json_str){
-    //     zadania = JSON.parse(json_str);
-    //     showTasks();
-    // }
-    var zapisane = localStorage.getItem("json_str");
-    if(zapisane){
-        zapisane = JSON.parse(zapisane);
-        zadania = zapisane;
+    var localZadania = JSON.parse(localStorage.getItem("json_str"));
+    if(localZadania) {
+        zadania = localZadania;
         showTasks();
     }
 }, false);
 
-// window.addEventListener("beforeunload", function () {
-//     var json_str = JSON.stringify(zadania);
-//     setCookie("mycookie", json_str);
-//     console.log(json_str);
-// }, false);
+// document.onclick    = function () {
+//     localStorage.setItem("json_str", JSON.stringify(zadania));
+// };
 
 
-document.onclick    = function () {
-    // var json_str = JSON.stringify(zadania);
-    // setCookie("mycookie", json_str);
-    // console.log(json_str);
-    localStorage.setItem("json_str", JSON.stringify(zadania));
-};
 
-
-function setCookie(c_name,value,exdays)
-{
-    var exdate=new Date();
-    exdate.setDate(exdate.getDate() + exdays);
-    var c_value=escape(value) +
-        ((exdays==null) ? "" : ("; expires="+exdate.toUTCString()));
-    document.cookie=c_name + "=" + c_value;
-}
-
-function getCookie(c_name)
-{
-    var i,x,y,ARRcookies=document.cookie.split(";");
-    for (i=0;i<ARRcookies.length;i++)
-    {
-        x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-        y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-        x=x.replace(/^\s+|\s+$/g,"");
-        if (x==c_name)
-        {
-            return unescape(y);
-        }
-    }
-}
 
