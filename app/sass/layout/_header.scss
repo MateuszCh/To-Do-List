@@ -13,7 +13,11 @@ header  {
 h1  {
   margin: 0;
   font-family: $fontForHeader;
-  padding: 10px 0;
+
+  @include mq-not-mobile  {
+    padding: 10px 0;
+  }
+
 }
 
 

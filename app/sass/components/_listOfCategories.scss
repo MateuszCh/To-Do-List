@@ -1,5 +1,5 @@
 .categoryList {
-  margin-top: 100px;
+  margin-top: 70px;
   margin-bottom: 20px;
   .listOfCategories {
     padding: 0;
@@ -14,6 +14,7 @@
 
     @include mq-not-mobile  {
       width: 70%;
+      margin-top: 100px;
     }
 
     @include laptops  {

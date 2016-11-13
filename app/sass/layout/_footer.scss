@@ -5,11 +5,15 @@ footer  {
   border-top-right-radius: 5px;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  align-items: center;
   position: fixed;
   width: 100%;
   bottom: 0;
   border-top: 5px solid darken($header-color, 10%);
+
+  @include mq-not-mobile  {
+    padding: 10px;
+  }
 
   p {
     margin: 0;
@@ -18,13 +22,12 @@ footer  {
   }
 
   button  {
-    right: 10px;
-    bottom: 10px;
-    width: 40px;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
     background-color: $header-color;
-    font-size: 2rem;
+    font-size: 1.5rem;
     border-radius: 50%;
-    height: 40px;
     border: 1px solid white;
     color: $header-text-color;
     cursor: pointer;
@@ -32,7 +35,11 @@ footer  {
     &:hover {
       background-color: lighten($header-color, 10%);
     }
-
+    @include mq-not-mobile {
+      width: 40px;
+      height: 40px;
+      font-size: 2rem;
+    }
     @include laptops  {
       display: none;
     }
