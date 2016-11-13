@@ -430,9 +430,6 @@ window.addEventListener("load", function () {
     }
 }, false);
 
-// document.onclick    = function () {
-//     localStorage.setItem("json_str", JSON.stringify(zadania));
-// };
 
 
 

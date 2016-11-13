@@ -1,16 +1,10 @@
 @import "base/normalize/normalize";
-
 @import 'helpers/variables';
 @import "helpers/mixins";
-@import 'helpers/placeholders';
 @import "helpers/animation";
-
 @import "base/base";
-@import "base/fonts";
-
 @import 'layout/header';
 @import "layout/footer";
-
 @import "components/list";
 @import "components/addForm";
 @import "components/closeButton";
