@@ -1,29 +1,42 @@
 /**
  * Created by Mateusz Chybiorz on 2016-11-02.
  */
+//buttons
 var addButton = document.getElementById("plus");
-var lista = document.getElementById("tasks");
-var completedList = document.getElementById("completedTasks");
-var addForm = document.getElementById("addForm");
-var editForm = document.getElementById("editForm");
 var addFormCloseButton = document.getElementById("close");
 var editFormCloseButton = document.getElementById("closeEdit");
-var addTask = document.getElementById("addTask");
-var completedCheckbox = document.getElementsByClassName("completedCheckbox");
-var completedTasksCounter = document.getElementById("counter");
 var save = document.getElementById("save");
-var tasksHeader = document.getElementById("tasksHeaderH2");
-var completedTasksHeader = document.getElementById("completedTasksHeaderH2");
-var categoryList = document.getElementById("listOfCategories");
-var colorsDivs = document.querySelectorAll(".colors div");
+var addTask = document.getElementById("addTask");
+//forms
+var addForm = document.getElementById("addForm");
+var editForm = document.getElementById("editForm");
+//lists
+var lista = document.getElementById("tasks");
+var completedList = document.getElementById("completedTasks");
 var lisy = document.getElementsByClassName("lisUn");
 var lisy2 = document.getElementsByClassName("lisCom");
 var taski = document.getElementsByClassName("listy");
+var categoryList = document.getElementById("listOfCategories");
+//other variables
+var completedCheckbox = document.getElementsByClassName("completedCheckbox");
+var completedTasksCounter = document.getElementById("counter");
+var tasksHeader = document.getElementById("tasksHeaderH2");
+var completedTasksHeader = document.getElementById("completedTasksHeaderH2");
+var colorsDivs = document.querySelectorAll(".colors div");
 
+//array containing tasks
+var zadania = [];
+//array containing categories of tasks
+var listOfCategories = [];
+//index of current task
 var currentTaskObject;
+//selected color
 var pickedColor;
+//selected category
 var cat;
+var previousSize = window.innerWidth;
 
+//elements of addForm and editForm
 var title = document.getElementById("title");
 var category = document.getElementById("category");
 var content = document.getElementById("content");
@@ -34,9 +47,9 @@ var editCategory = document.getElementById("categoryEdit");
 var editContent = document.getElementById("contentEdit");
 var editTime = document.getElementById("timeEdit");
 var editData = document.getElementById("dataEdit");
-var zadania = [];
-var listOfCategories = [];
 
+//Functions
+//saves zadania array in locale storage
 function saveZadania() {
     localStorage.setItem("json_str", JSON.stringify(zadania));
 }
@@ -54,7 +67,7 @@ function makeListOfCategories() {
         listOfCategories.unshift("all");
     }
 }
-
+// creates elements of list of categories and display them
 function showListOfCategories() {
     makeListOfCategories();
     categoryList.innerHTML = "";
@@ -65,7 +78,7 @@ function showListOfCategories() {
         categoryList.appendChild(el);
     }
 }
-
+// show tasks of selected category
 function showTasksOfCategory(cat) {
     for(var h = 0; h < taski.length; h++){
         taski[h].classList.remove("schow");
@@ -77,7 +90,7 @@ function showTasksOfCategory(cat) {
         }
     }
 }
-
+//remove black border from previously selected background-color of task
 function removePickedFromColors() {
     for(var w = 0; w <colorsDivs.length; w++){
         if(colorsDivs[w].classList.contains("picked")){
@@ -86,7 +99,7 @@ function removePickedFromColors() {
         }
     }
 }
-
+// show and hide selected list of tasks
 function hideList(list) {
     if(list.style.display == "block"){
         list.classList.add("zwinC");
@@ -102,7 +115,7 @@ function hideList(list) {
         }, 500)
     }
 }
-
+// constructor function for tasks
 function Task(title, description, category, time, date, color) {
     this.title = title;
     this.description = description;
@@ -112,7 +125,7 @@ function Task(title, description, category, time, date, color) {
     this.color  =   color;
     this.completed = false;
 }
-
+//clear edit or add forms and hide them
 function clearForm(el) {
     if(window.matchMedia("(max-width: 1119px)").matches || el == editForm){
         el.classList.add("zwinC");
@@ -128,12 +141,9 @@ function clearForm(el) {
     removePickedFromColors();
     showTasks();
 }
-
-var previousSize = window.innerWidth;
-var currentSize;
-
+//control display of addForm depending on resolution
 function changingSizeOfWindow() {
-    currentSize = window.innerWidth;
+    var currentSize = window.innerWidth;
     if(currentSize > previousSize){
         if(window.matchMedia("(min-width: 1200px)").matches){
             addForm.style.display = "block";
@@ -147,7 +157,7 @@ function changingSizeOfWindow() {
     }
     previousSize = currentSize;
 }
-
+//create elements for tasks and display them in an appropriate list
 function showTasks() {
     lista.innerHTML =   "";
     completedList.innerHTML = "";
@@ -206,7 +216,7 @@ function showTasks() {
     updateCompletedTaskaCounter();
     showListOfCategories();
 }
-
+// show headers for lists if lists contain task and hide headers if doesn't contain task
 function updateHeadersForList() {
     if(lista.firstChild){
         var h2 = document.getElementById("tasksHeader");
@@ -223,7 +233,7 @@ function updateHeadersForList() {
         h2.classList.remove("showHeader");
     }
 }
-
+//update task counter in the footer
 function updateCompletedTaskaCounter() {
     var allTask = 0;
     var completedTasks = 0;
@@ -237,7 +247,7 @@ function updateCompletedTaskaCounter() {
     }
     completedTasksCounter.textContent = "Completed tasks: " + completedTasks + "/" + allTask;
 }
-
+//fill editForm with values from clicked task
 function showEditForm(taskObject) {
     editTitle.value = taskObject.title;
     editCategory.value = taskObject.category;
@@ -250,7 +260,7 @@ function showEditForm(taskObject) {
         }
     }
 }
-
+// delete all tasks of selected category or all if none is selected
 function deleteAllCategoryTasks(taski, taskiLista) {
     for(var p = 0; p <taski.length; p++){
         var indexOfObject = taski[p].dataset.indexNumber;
@@ -277,9 +287,17 @@ function deleteAllCategoryTasks(taski, taskiLista) {
         taskiLista.style.display = "block";
     }, 501);
 }
-
+// Event listeners
 window.addEventListener("resize", function () {
     changingSizeOfWindow();
+}, false);
+
+window.addEventListener("load", function () {
+    var localZadania = JSON.parse(localStorage.getItem("json_str"));
+    if(localZadania) {
+        zadania = localZadania;
+        showTasks();
+    }
 }, false);
 
 document.addEventListener("click", function (e) {
@@ -292,7 +310,115 @@ document.addEventListener("click", function (e) {
         e.target.classList.add("markedCategory");
         showTasksOfCategory(cat);
     }
+    if(e.target && e.target.classList.contains("deleteButton")){
+        e.target.parentNode.parentNode.classList.add("hide");
+        var indexOfObject = e.target.parentNode.parentNode.dataset.indexNumber;
+        delete zadania[indexOfObject];
+        setTimeout(function () {
+            showTasks();
+        }, 500);
+        if(zadania[zadania.length-1] == undefined){
+            zadania.pop();
+        }
+        saveZadania();
+    }
+    if(e.target && e.target.classList.contains("completedCheckbox")){
+        indexOfObject = e.target.parentNode.dataset.indexNumber;
+        if(e.target.checked){
+            zadania[indexOfObject].completed = true;
+        } else {
+            zadania[indexOfObject].completed = false;
+        }
+        saveZadania();
+        showTasks();
+        showTasksOfCategory(cat);
+    }
+    if(e.target && e.target.classList.contains("deleteAll")){
+        if(e.target.parentNode.parentNode.parentNode.parentNode == document.getElementById("tasksHeader") ||
+            e.target.parentNode.parentNode == document.getElementById("tasksHeader")){
+            deleteAllCategoryTasks(lisy, lista, false);
+        } else if(e.target.parentNode.parentNode.parentNode.parentNode == document.getElementById("completedTasksHeader") ||
+            e.target.parentNode.parentNode == document.getElementById("completedTasksHeader")){
+            deleteAllCategoryTasks(lisy2, completedList, true);
+        }
+        setTimeout(function () {
+            updateHeadersForList();
+            updateCompletedTaskaCounter();
+            showListOfCategories();
+        }, 501);
+    }
+    if(e.target && e.target.classList.contains("task")){
+        indexOfObject = e.target.parentNode.dataset.indexNumber;
+        currentTaskObject = indexOfObject;
+        editForm.style.display = "block";
+        editForm.classList.add("rozwinC");
+        setTimeout(function () {
+            editForm.classList.remove("rozwinC");
+        }, 500);
+        showEditForm(zadania[indexOfObject]);
+    }
 }, false);
+
+// document.addEventListener("click", function (e) {
+//     if(e.target && e.target.classList.contains("deleteButton")){
+//         e.target.parentNode.parentNode.classList.add("hide");
+//         var indexOfObject = e.target.parentNode.parentNode.dataset.indexNumber;
+//         delete zadania[indexOfObject];
+//         setTimeout(function () {
+//             showTasks();
+//         }, 500);
+//
+//
+//         if(zadania[zadania.length-1] == undefined){
+//             zadania.pop();
+//         }
+//         saveZadania();
+//     }
+// }, false);
+//
+// document.addEventListener("click", function (e) {
+//     if(e.target && e.target.classList.contains("completedCheckbox")){
+//         var indexOfObject = e.target.parentNode.dataset.indexNumber;
+//         if(e.target.checked){
+//             zadania[indexOfObject].completed = true;
+//         } else {
+//             zadania[indexOfObject].completed = false;
+//         }
+//         saveZadania();
+//         showTasks();
+//         showTasksOfCategory(cat);
+//     }
+// }, false);
+//
+// document.addEventListener("click", function (e) {
+//     if(e.target && e.target.classList.contains("deleteAll")){
+//         if(e.target.parentNode.parentNode.parentNode.parentNode == document.getElementById("tasksHeader") ||
+//             e.target.parentNode.parentNode == document.getElementById("tasksHeader")){
+//             deleteAllCategoryTasks(lisy, lista, false);
+//         } else if(e.target.parentNode.parentNode.parentNode.parentNode == document.getElementById("completedTasksHeader") ||
+//             e.target.parentNode.parentNode == document.getElementById("completedTasksHeader")){
+//             deleteAllCategoryTasks(lisy2, completedList, true);
+//         }
+//         setTimeout(function () {
+//             updateHeadersForList();
+//             updateCompletedTaskaCounter();
+//             showListOfCategories();
+//         }, 501);
+//     }
+// }, false);
+//
+// document.addEventListener("click", function (e) {
+//     if(e.target && e.target.classList.contains("task")){
+//         var indexOfObject = e.target.parentNode.dataset.indexNumber;
+//         currentTaskObject = indexOfObject;
+//         editForm.style.display = "block";
+//         editForm.classList.add("rozwinC");
+//         setTimeout(function () {
+//             editForm.classList.remove("rozwinC");
+//         }, 500);
+//         showEditForm(zadania[indexOfObject]);
+//     }
+// }, false);
 
 for(var t = 0; t < colorsDivs.length; t++){
     colorsDivs[t].addEventListener("click", function (e) {
@@ -303,47 +429,12 @@ for(var t = 0; t < colorsDivs.length; t++){
     }, false)
 }
 
-tasksHeader.addEventListener("click", function (e) {
-    if(e.target == tasksHeader){
+tasksHeader.addEventListener("click", function () {
         hideList(lista);
-    }
 }, false);
 
-completedTasksHeader.addEventListener("click", function (e) {
-    if(e.target == completedTasksHeader){
+completedTasksHeader.addEventListener("click", function () {
         hideList(completedList);
-    }
-}, false);
-
-document.addEventListener("click", function (e) {
-   if(e.target && e.target.classList.contains("deleteButton")){
-       e.target.parentNode.parentNode.classList.add("hide");
-       var indexOfObject = e.target.parentNode.parentNode.dataset.indexNumber;
-       delete zadania[indexOfObject];
-       setTimeout(function () {
-           showTasks();
-       }, 500);
-
-
-       if(zadania[zadania.length-1] == undefined){
-            zadania.pop();
-       }
-       saveZadania();
-   }
-}, false);
-
-document.addEventListener("click", function (e) {
-    if(e.target && e.target.classList.contains("completedCheckbox")){
-        var indexOfObject = e.target.parentNode.dataset.indexNumber;
-        if(e.target.checked){
-            zadania[indexOfObject].completed = true;
-        } else {
-            zadania[indexOfObject].completed = false;
-        }
-        saveZadania();
-        showTasks();
-        showTasksOfCategory(cat);
-    }
 }, false);
 
 addTask.addEventListener("click", function (e) {
@@ -354,36 +445,6 @@ addTask.addEventListener("click", function (e) {
         zadania.push(task);
         clearForm(addForm);
         saveZadania();
-    }
-}, false);
-
-document.addEventListener("click", function (e) {
-    if(e.target && e.target.classList.contains("deleteAll")){
-        if(e.target.parentNode.parentNode.parentNode.parentNode == document.getElementById("tasksHeader") ||
-        e.target.parentNode.parentNode == document.getElementById("tasksHeader")){
-            deleteAllCategoryTasks(lisy, lista, false);
-        } else if(e.target.parentNode.parentNode.parentNode.parentNode == document.getElementById("completedTasksHeader") ||
-        e.target.parentNode.parentNode == document.getElementById("completedTasksHeader")){
-            deleteAllCategoryTasks(lisy2, completedList, true);
-        }
-        setTimeout(function () {
-            updateHeadersForList();
-            updateCompletedTaskaCounter();
-            showListOfCategories();
-        }, 501);
-    }
-}, false);
-
-document.addEventListener("click", function (e) {
-    if(e.target && e.target.classList.contains("task")){
-        var indexOfObject = e.target.parentNode.dataset.indexNumber;
-        currentTaskObject = indexOfObject;
-        editForm.style.display = "block";
-        editForm.classList.add("rozwinC");
-        setTimeout(function () {
-            editForm.classList.remove("rozwinC");
-        }, 500)
-        showEditForm(zadania[indexOfObject]);
     }
 }, false);
 
@@ -421,16 +482,3 @@ editFormCloseButton.addEventListener("click", function () {
     clearForm(editForm);
     showTasksOfCategory(cat);
 }, false);
-
-window.addEventListener("load", function () {
-    var localZadania = JSON.parse(localStorage.getItem("json_str"));
-    if(localZadania) {
-        zadania = localZadania;
-        showTasks();
-    }
-}, false);
-
-
-
-
-
