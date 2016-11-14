@@ -1,88 +1,28 @@
 .tasks .greyColor,
 .completedTasks .greyColor {
-  background-color: darken(white, 10%);
-  box-shadow: 1px 1px 2px 2px darken(white, 20%);
+  @include colorsForLi(darken(white, 10%),$header-color, lighten($header-color,10%));
 }
-
 .tasks .redColor,
 .completedTasks .redColor  {
-  background-color: #AF222B;
-  box-shadow: 1px 1px 2px 2px darken(#AF222B, 10%);
-  color: white;
-  &:hover {
-    background-color: lighten(#AF222B, 10%);
-    box-shadow: 1px 1px 2px 2px darken(#AF222B, 20%);
-  }
-  button  {
-    color: white;
-  }
+  @include colorsForLi($color-two, white, lighten($color-two, 10%));
 }
-
 .tasks .orangeColor,
 .completedTasks .orangeColor   {
-  background-color: #CA7032;
-  box-shadow: 1px 1px 2px 2px darken(#CA7032, 10%);
-  color: white;
-  &:hover {
-    background-color: lighten(#CA7032, 10%);
-    box-shadow: 1px 1px 2px 2px darken(#CA7032, 20%);
-  }
-  button  {
-    color: white;
-  }
+  @include colorsForLi($color-three, white, lighten($color-three, 10%))
 }
-
 .tasks .yellowColor,
 .completedTasks .yellowColor  {
-  background-color: #F0D493;
-  box-shadow: 1px 1px 2px 2px darken(#F0D493, 10%);
-  button  {
-    color: white;
-  }
-  &:hover {
-    background-color: darken(#F0D493, 10%);
-    box-shadow: 1px 1px 2px 2px darken(#F0D493, 20%);
-  }
+  @include colorsForLi($color-four, $header-color, darken($color-four, 10%))
 }
-
 .tasks .greenColor,
 .completedTasks .greenColor  {
-  background-color: #69A364;
-  box-shadow: 1px 1px 2px 2px darken(#69A364, 10%);
-  color: white;
-  &:hover {
-    background-color: lighten(#69A364, 10%);
-    box-shadow: 1px 1px 2px 2px darken(#69A364, 20%);
-  }
-  button  {
-    color: white;
-  }
+  @include colorsForLi($color-five, white, lighten($color-five, 10%))
 }
-
 .tasks .seaColor,
 .completedTasks .seaColor  {
-  background-color: #94D4BD;
-  box-shadow: 1px 1px 2px 2px darken(#94D4BD, 10%);
-  button  {
-    color: white;
-  }
-  &:hover {
-    background-color: darken(#94D4BD, 10%);
-    box-shadow: 1px 1px 2px 2px darken(#94D4BD, 20%);
-  }
+  @include colorsForLi($color-six, $header-color, darken($color-six, 10%))
 }
-
 .tasks .blueColor,
 .completedTasks .blueColor   {
-  background-color: #029AC6;
-  box-shadow: 1px 1px 2px 2px darken(#029AC6, 10%);
-  color: white;
-  &:hover {
-    background-color: lighten(#029AC6, 10%);
-    box-shadow: 1px 1px 2px 2px darken(#029AC6, 20%);
-  }
-  button  {
-    color: white;
-  }
+  @include colorsForLi($color-seven, white, lighten($color-seven, 10%))
 }
-

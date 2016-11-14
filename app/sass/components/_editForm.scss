@@ -28,14 +28,12 @@
       display: flex;
 
       div   {
-        //flex-basis: 100%;
         display: flex;
         flex-direction: column;
         width: 50%;
 
         label,
         input {
-          //flex-basis: 50%;
           border: none;
           padding: 2px;
           width: 100%;
@@ -47,12 +45,6 @@
       width: 100%;
       border: none;
     }
-
-    //input[type="time"],
-    //input[type="date"]  {
-    //  padding: 3px;
-    //  height: 30px;
-    //}
 
     textarea  {
       width: 100%;
@@ -79,14 +71,14 @@
       color: $header-text-color;
       background-color: lighten($header-color,10%);
       &:hover {
-        background-color: darken($header-color, 0%);
+        background-color: $header-color;
       }
     }
 
     .colors {
       margin: 20px 10px 0 10px;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
 
       div   {
         width: 35px;
@@ -118,7 +110,5 @@
         background-color: $color-seven;
       }
     }
-
-
   }
 }

@@ -94,6 +94,7 @@
     button  {
       background-color: inherit;
       border: none;
+      color: $header-color;
       cursor: pointer;
       &:hover {
         color: red;
@@ -107,7 +108,6 @@
 }
 
 .list {
-  //margin-top: 90px;
   margin-bottom: 60px;
   @include mq-not-mobile  {
     width: 70%;
@@ -117,7 +117,6 @@
   @include  laptops {
     width: 50%;
     margin-left: 10%;
-    //margin-bottom: 80px;
   }
 }
 

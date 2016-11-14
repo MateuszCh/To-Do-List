@@ -9,4 +9,16 @@
     @content;
   }
 }
+@mixin colorsForLi($color, $textColor, $hoverBackground)  {
+  background-color: $color;
+  box-shadow: 1px 1px 2px 2px darken($color, 10%);
+  color: $textColor;
+  &:hover {
+    background-color: $hoverBackground;
+    box-shadow: 1px 1px 2px 2px darken($color, 20%);
+  }
+  button  {
+    color: $textColor;
+  }
+}
 
