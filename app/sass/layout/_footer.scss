@@ -1,8 +1,8 @@
 footer  {
   background-color: $header-color;
   color: $header-text-color;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-left-radius: .3125rem;
+  border-top-right-radius: .3125rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,21 +10,18 @@ footer  {
   width: 100%;
   bottom: 0;
   border-top: 5px solid darken($header-color, 10%);
-
   @include mq-not-mobile  {
-    padding: 10px;
+    padding: .625rem
   }
-
   p {
     margin: 0;
-    padding: 10px;
+    padding: .625rem;
     font-family: $fontForText;
   }
-
   button  {
-    margin-right: 10px;
-    width: 30px;
-    height: 30px;
+    margin-right: .625rem;
+    width: 1.875rem;
+    height: 1.875rem;
     background-color: $header-color;
     font-size: 1.5rem;
     border-radius: 50%;
@@ -36,8 +33,8 @@ footer  {
       background-color: lighten($header-color, 10%);
     }
     @include mq-not-mobile {
-      width: 40px;
-      height: 40px;
+      width: 2.5rem;
+      height: 2.5rem;
       font-size: 2rem;
     }
     @include laptops  {

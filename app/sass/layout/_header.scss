@@ -2,22 +2,19 @@ header  {
   width: 100%;
   background-color: $header-color;
   color: $header-text-color;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: .3125rem;
+  border-bottom-left-radius: .3125rem;
   text-align: center;
   position: fixed;
   top: 0;
   border-bottom: 5px solid darken($header-color, 10%);
 }
-
 h1  {
   margin: 0;
   font-family: $fontForHeader;
-
   @include mq-not-mobile  {
-    padding: 10px 0;
+    padding: .625rem 0;
   }
-
 }
 
 

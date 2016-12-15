@@ -5,11 +5,11 @@ input[type=checkbox] + label:before {
   font-family: FontAwesome;
   display: inline-block;
   content: "\f096";
-  letter-spacing: 10px;
+  letter-spacing: .625rem;
 }
 input[type=checkbox]:checked + label:before {
   content: "\f046";
-  letter-spacing: 5px;
+  letter-spacing: .3125rem;
 }
 
 

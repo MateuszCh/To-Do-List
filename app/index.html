@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>ToDo App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Nosifer|Work+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
@@ -12,116 +11,118 @@
     <header>
         <h1>ToDo App</h1>
     </header>
-    <section class="categoryList" id="categoryList">
-        <ul class="listOfCategories" id="listOfCategories">
-        </ul>
-    </section>
-    <section class="list">
-        <section>
-            <section id="tasksHeader" class="tasksHeader">
-                <section>
-                    <h2 id="tasksHeaderH2">Tasks:</h2>
-                    <i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i>
-                </section>
-                <ul>
-                    <li>
-                        <input type="checkbox" class="completedCheckbox">
-                        <label></label>
-                        <label>Title</label>
-                        <label>Category</label>
-                        <label>Time</label>
-                        <label>Date</label>
-                        <button><i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i></button>
-                    </li>
-                </ul>
-            </section>
-            <ul class="tasks" id="tasks" style="display: block">
+    <main>
+        <div class="categoryList" id="categoryList">
+            <ul class="listOfCategories" id="listOfCategories">
             </ul>
-        </section>
-        <section>
-            <section id="completedTasksHeader" class="tasksHeader">
-                <section>
-                    <h2 id="completedTasksHeaderH2">Completed Tasks:</h2>
-                    <i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i>
-                </section>
-                <ul>
-                    <li>
-                        <input type="checkbox" class="completedCheckbox">
-                        <label></label>
-                        <label>Title</label>
-                        <label>Category</label>
-                        <label>Time</label>
-                        <label>Date</label>
-                        <button><i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i></button>
-                    </li>
+        </div>
+        <div class="list">
+            <div>
+                <div id="tasksHeader" class="tasksHeader">
+                    <div>
+                        <h2 id="tasksHeaderH2">Tasks:</h2>
+                        <i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i>
+                    </div>
+                    <ul>
+                        <li>
+                            <input type="checkbox" class="completedCheckbox">
+                            <label></label>
+                            <label>Title</label>
+                            <label>Category</label>
+                            <label>Time</label>
+                            <label>Date</label>
+                            <button><i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i></button>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="tasks" id="tasks" style="display: block">
                 </ul>
-            </section>
-            <ul class="completedTasks" id="completedTasks" style="display: block">
-            </ul>
-        </section>
-    </section>
-    <section class="addForm" id="addForm">
-        <i id="close" class="fa fa-times fa-2x close" aria-hidden="true"></i>
-        <form>
-            <h2>New Task</h2>
-            <fieldset>
-                <input type="text" id="title" placeholder="Title" class="addFormInputs">
-                <input type="text" id="category" placeholder="Category" class="addFormInputs">
-                <textarea id="content" placeholder="Description" class="addFormInputs"></textarea>
-                <div class="pyk">
-                    <div class="time">
-                        <label for="time">Time</label>
-                        <input type="time" id="time" class="addFormInputs">
+            </div>
+            <div>
+                <div id="completedTasksHeader" class="tasksHeader">
+                    <div>
+                        <h2 id="completedTasksHeaderH2">Completed Tasks:</h2>
+                        <i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i>
                     </div>
-                    <div class="data">
-                        <label for="data">Date</label>
-                        <input type="date" id="data" class="addFormInputs">
+                    <ul>
+                        <li>
+                            <input type="checkbox" class="completedCheckbox">
+                            <label></label>
+                            <label>Title</label>
+                            <label>Category</label>
+                            <label>Time</label>
+                            <label>Date</label>
+                            <button><i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i></button>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="completedTasks" id="completedTasks" style="display: block">
+                </ul>
+            </div>
+        </div>
+        <div class="addForm" id="addForm">
+            <i id="close" class="fa fa-times fa-2x close" aria-hidden="true"></i>
+            <form>
+                <h2>New Task</h2>
+                <fieldset>
+                    <input type="text" id="title" placeholder="Title" class="addFormInputs">
+                    <input type="text" id="category" placeholder="Category" class="addFormInputs">
+                    <textarea id="content" placeholder="Description" class="addFormInputs"></textarea>
+                    <div class="timeAndDate">
+                        <div class="time">
+                            <label for="time">Time</label>
+                            <input type="time" id="time" class="addFormInputs">
+                        </div>
+                        <div class="data">
+                            <label for="data">Date</label>
+                            <input type="date" id="data" class="addFormInputs">
+                        </div>
                     </div>
-                </div>
-                <div class="colors">
-                    <div class="greyColor"></div>
-                    <div class="redColor"></div>
-                    <div class="orangeColor"></div>
-                    <div class="yellowColor"></div>
-                    <div class="greenColor"></div>
-                    <div class="seaColor"></div>
-                    <div class="blueColor"></div>
-                </div>
-                <input type="submit" value="Add" id="addTask">
-            </fieldset>
-        </form>
-    </section>
-    <section class="editForm" id="editForm">
-        <i id="closeEdit" class="fa fa-times fa-2x close" aria-hidden="true"></i>
-        <form>
-            <h2>Edit Task</h2>
-            <fieldset>
-                <input type="text" id="titleEdit" placeholder="Title" class="editFormInputs">
-                <input type="text" id="categoryEdit" placeholder="Category" class="editFormInputs">
-                <textarea cols="10" id="contentEdit" placeholder="Description" class="editFormInputs"></textarea>
-                <div class="pyk">
-                    <div class="time">
-                        <label for="timeEdit">Time</label>
-                        <input type="time" id="timeEdit" class="editFormInputs">
+                    <div class="colors">
+                        <div class="greyColor"></div>
+                        <div class="redColor"></div>
+                        <div class="orangeColor"></div>
+                        <div class="yellowColor"></div>
+                        <div class="greenColor"></div>
+                        <div class="seaColor"></div>
+                        <div class="blueColor"></div>
                     </div>
-                    <div class="data">
-                        <label for="dataEdit">Date</label>
-                        <input type="date" id="dataEdit" class="editFormInputs">
+                    <input type="submit" value="Add" id="addTask">
+                </fieldset>
+            </form>
+        </div>
+        <div class="editForm" id="editForm">
+            <i id="closeEdit" class="fa fa-times fa-2x close" aria-hidden="true"></i>
+            <form>
+                <h2>Edit Task</h2>
+                <fieldset>
+                    <input type="text" id="titleEdit" placeholder="Title" class="editFormInputs">
+                    <input type="text" id="categoryEdit" placeholder="Category" class="editFormInputs">
+                    <textarea cols="10" id="contentEdit" placeholder="Description" class="editFormInputs"></textarea>
+                    <div class="timeAndDate">
+                        <div class="time">
+                            <label for="timeEdit">Time</label>
+                            <input type="time" id="timeEdit" class="editFormInputs">
+                        </div>
+                        <div class="data">
+                            <label for="dataEdit">Date</label>
+                            <input type="date" id="dataEdit" class="editFormInputs">
+                        </div>
                     </div>
-                </div>
-                <div class="colors">
-                    <div class="greyColor"></div>
-                    <div class="redColor"></div>
-                    <div class="orangeColor"></div>
-                    <div class="yellowColor"></div>
-                    <div class="greenColor"></div>
-                    <div class="seaColor"></div>
-                    <div class="blueColor"></div>
-                </div>
-                <input type="submit" value="Save" id="save">
-            </fieldset>
-        </form>
-    </section>
+                    <div class="colors">
+                        <div class="greyColor"></div>
+                        <div class="redColor"></div>
+                        <div class="orangeColor"></div>
+                        <div class="yellowColor"></div>
+                        <div class="greenColor"></div>
+                        <div class="seaColor"></div>
+                        <div class="blueColor"></div>
+                    </div>
+                    <input type="submit" value="Save" id="save">
+                </fieldset>
+            </form>
+        </div>
+    </main>
     <footer>
         <p id="counter">Completed tasks: 0/0</p>
         <button id="plus">+</button>

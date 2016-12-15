@@ -1,8 +1,8 @@
 .close  {
   color: lighten($header-color, 10%);
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: .3125rem;
+  top: .3125rem;
   &:hover {
     color: white;
   }
