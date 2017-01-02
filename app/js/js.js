@@ -34,7 +34,6 @@
     var pickedColor;
     //selected category
     var cat;
-    var previousSize = window.innerWidth;
     //elements of addForm and editForm
     var title = document.getElementById("title");
     var category = document.getElementById("category");
@@ -74,6 +73,7 @@
             el.textContent = listOfCategories[a];
             categoryList.appendChild(el);
         }
+        markCategory();
     }
     // show tasks of selected category
     function showTasksOfCategory(cat) {
@@ -124,35 +124,18 @@
     }
     //clear edit or add forms and hide them
     function clearForm(el) {
-        if(window.matchMedia("(max-width: 1119px)").matches || el == editForm){
-            el.classList.add("slideUp");
-            setTimeout(function () {
-                el.style.display = "none";
-                el.classList.remove("slideUp");
-            }, 500);
-        }
+        el.classList.add("slideUp");
+        setTimeout(function () {
+            el.style.display = "none";
+            el.classList.remove("slideUp");
+        }, 500);
+
         var inputs = document.getElementsByClassName("addFormInputs");
         for(var i = 0; i < inputs.length; i++){
             inputs[i].value = "";
         }
         removePickedFromColors();
         showTasks();
-    }
-    //control display of addForm depending on resolution
-    function changingSizeOfWindow() {
-        var currentSize = window.innerWidth;
-        if(currentSize > previousSize){
-            if(window.matchMedia("(min-width: 1200px)").matches){
-                addForm.style.display = "block";
-            }
-        } else if(currentSize < previousSize){
-            if(window.matchMedia("(min-width: 1200px)").matches){
-                addForm.style.display = "block";
-            } else if((previousSize > 1200 && currentSize < 1200) || previousSize == 1200) {
-                addForm.style.display = "none";
-            }
-        }
-        previousSize = currentSize;
     }
     //create elements for tasks and display them in an appropriate list
     function showTasks() {
@@ -175,30 +158,30 @@
             completed.id = idy;
             var labelForCheckbox = document.createElement("label");
             labelForCheckbox.setAttribute("for", idy);
-            var label = document.createElement("label");
-            label.classList.add("task");
+            var spanForTitle = document.createElement("span");
+            spanForTitle.classList.add("task");
             var deleteButton = document.createElement("button");
             deleteButton.innerHTML = '<i class="fa fa-trash deleteButton" aria-hidden="true"></i>';
             if(zadania[i].title){
-                label.textContent = zadania[i].title;
+                spanForTitle.textContent = zadania[i].title;
             } else {
-                label.textContent = zadania[i].description;
+                spanForTitle.textContent = zadania[i].description;
             }
-            var labelForTime = document.createElement("label");
-            labelForTime.textContent = zadania[i].time;
-            labelForTime.classList.add("task");
-            var category = document.createElement("label");
+            var spanForTime = document.createElement("span");
+            spanForTime.textContent = zadania[i].time;
+            spanForTime.classList.add("task");
+            var category = document.createElement("span");
             category.textContent = zadania[i].category;
             category.classList.add("task");
-            var labelForDate = document.createElement("label");
-            labelForDate.textContent = zadania[i].date;
-            labelForDate.classList.add("task");
+            var spanForDate = document.createElement("span");
+            spanForDate.textContent = zadania[i].date;
+            spanForDate.classList.add("task");
             el.appendChild(completed);
             el.appendChild(labelForCheckbox);
-            el.appendChild(label);
+            el.appendChild(spanForTitle);
             el.appendChild(category);
-            el.appendChild(labelForTime);
-            el.appendChild(labelForDate);
+            el.appendChild(spanForTime);
+            el.appendChild(spanForDate);
             el.appendChild(deleteButton);
             if(zadania[i].completed){
                 completedList.appendChild(el);
@@ -272,9 +255,9 @@
                 if(zadania[indexOfObject].category == cat){
                     taski[p].classList.add("hide");
                     var to = taski[p];
-                    setTimeout(function () {
-                        taskiLista.removeChild(to);
-                    }, 500);
+                    setTimeout(function (to) {
+                        to.parentNode.removeChild(to);
+                    }, 500, to);
                     delete zadania[indexOfObject];
                     saveZadania();
                 }
@@ -284,11 +267,34 @@
             taskiLista.style.display = "block";
         }, 501);
     }
-    // Event listeners
-    window.addEventListener("resize", function () {
-        changingSizeOfWindow();
-    }, false);
-
+    //check if current category is empty and set cat to undefined
+    function ifCatEmpty() {
+        var empty = false;
+        for(var i = 0; i < zadania.length; i++){
+            if(zadania[i] && zadania[i].category && zadania[i].category == cat){
+                empty = true;
+            }
+        }
+        if(!empty){
+            cat = undefined;
+        }
+    }
+    //highlight current category
+    function markCategory() {
+        var number;
+        if(cat){
+            var markedCategory = document.getElementsByClassName("markedCategory")[0];
+            if(markedCategory){
+                markedCategory.classList.remove("markedCategory");
+            }
+            for(var i = 0; i < listOfCategories.length; i++){
+                if(listOfCategories[i] == cat){
+                    number = i;
+                }
+            }
+            document.getElementsByClassName("categories")[number].classList.add("markedCategory");
+        }
+    }
     window.addEventListener("load", function () {
         var localZadania = JSON.parse(localStorage.getItem("json_str"));
         if(localZadania) {
@@ -298,12 +304,8 @@
     }, false);
     document.addEventListener("click", function (e) {
         if(e.target && e.target.classList.contains("categories")){
-            var markedCategory = document.getElementsByClassName("markedCategory")[0];
-            if(markedCategory){
-                markedCategory.classList.remove("markedCategory");
-            }
             cat = e.target.textContent;
-            e.target.classList.add("markedCategory");
+            markCategory();
             showTasksOfCategory(cat);
         }
         if(e.target && e.target.classList.contains("deleteButton")){
@@ -311,8 +313,16 @@
             var indexOfObject = e.target.parentNode.parentNode.dataset.indexNumber;
             delete zadania[indexOfObject];
             setTimeout(function () {
-                showTasks();
-            }, 500);
+                e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
+                updateHeadersForList();
+                updateCompletedTaskaCounter();
+                ifCatEmpty();
+                showListOfCategories();
+                if(!cat){
+                    showTasks();
+                }
+                markCategory()
+            }, 510);
             if(zadania[zadania.length-1] == undefined){
                 zadania.pop();
             }
@@ -330,17 +340,22 @@
             showTasksOfCategory(cat);
         }
         if(e.target && e.target.classList.contains("deleteAll")){
-            if(e.target.parentNode.parentNode.parentNode.parentNode == document.getElementById("tasksHeader") ||
+            if(e.target.parentNode.parentNode.parentNode == document.getElementById("tasksHeader") ||
                 e.target.parentNode.parentNode == document.getElementById("tasksHeader")){
                 deleteAllCategoryTasks(lisy, lista, false);
-            } else if(e.target.parentNode.parentNode.parentNode.parentNode == document.getElementById("completedTasksHeader") ||
+            } else if(e.target.parentNode.parentNode.parentNode == document.getElementById("completedTasksHeader") ||
                 e.target.parentNode.parentNode == document.getElementById("completedTasksHeader")){
                 deleteAllCategoryTasks(lisy2, completedList, true);
             }
             setTimeout(function () {
                 updateHeadersForList();
                 updateCompletedTaskaCounter();
+                ifCatEmpty();
                 showListOfCategories();
+                if(!cat){
+                    showTasks();
+                }
+                markCategory()
             }, 501);
         }
         if(e.target && e.target.classList.contains("task")){
@@ -376,6 +391,7 @@
             zadania.push(task);
             clearForm(addForm);
             saveZadania();
+            showTasksOfCategory(cat);
         }
     }, false);
     addButton.addEventListener("click", function () {
@@ -396,6 +412,7 @@
         if(pickedColor){
             zadania[currentTaskObject].color = pickedColor;
         }
+        ifCatEmpty();
         clearForm(editForm);
         if(cat){
             showTasksOfCategory(cat);

@@ -23,17 +23,13 @@
                         <h2 id="tasksHeaderH2">Tasks:</h2>
                         <i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i>
                     </div>
-                    <ul>
-                        <li>
-                            <input type="checkbox" class="completedCheckbox">
-                            <label></label>
-                            <label>Title</label>
-                            <label>Category</label>
-                            <label>Time</label>
-                            <label>Date</label>
-                            <button><i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i></button>
-                        </li>
-                    </ul>
+                    <div>
+                        <span>Title</span>
+                        <span>Category</span>
+                        <span>Time</span>
+                        <span>Date</span>
+                        <button><i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i></button>
+                    </div>
                 </div>
                 <ul class="tasks" id="tasks" style="display: block">
                 </ul>
@@ -44,23 +40,19 @@
                         <h2 id="completedTasksHeaderH2">Completed Tasks:</h2>
                         <i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i>
                     </div>
-                    <ul>
-                        <li>
-                            <input type="checkbox" class="completedCheckbox">
-                            <label></label>
-                            <label>Title</label>
-                            <label>Category</label>
-                            <label>Time</label>
-                            <label>Date</label>
-                            <button><i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i></button>
-                        </li>
-                    </ul>
+                    <div>
+                        <span>Title</span>
+                        <span>Category</span>
+                        <span>Time</span>
+                        <span>Date</span>
+                        <button><i class="fa fa-trash deleteAll" aria-hidden="true" title="Delete all tasks"></i></button>
+                    </div>
                 </div>
                 <ul class="completedTasks" id="completedTasks" style="display: block">
                 </ul>
             </div>
         </div>
-        <div class="addForm" id="addForm">
+        <div class="forms" id="addForm">
             <i id="close" class="fa fa-times fa-2x close" aria-hidden="true"></i>
             <form>
                 <h2>New Task</h2>
@@ -91,7 +83,7 @@
                 </fieldset>
             </form>
         </div>
-        <div class="editForm" id="editForm">
+        <div class="forms" id="editForm">
             <i id="closeEdit" class="fa fa-times fa-2x close" aria-hidden="true"></i>
             <form>
                 <h2>Edit Task</h2>

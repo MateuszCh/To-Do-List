@@ -1,4 +1,4 @@
-.addForm {
+.forms {
   display: none;
   position: fixed;
   top: 0;
@@ -9,25 +9,6 @@
   font-family: $fontForText;
   color: $header-text-color;
   overflow: auto;
-  @include laptops  {
-    display: block;
-    position: fixed;
-    height: 32.5rem;
-    top: 6.5rem;
-    right: 10%;
-    margin-right: .75rem;
-    width: 25%;
-    background-color: darken(white, 25%);
-    box-shadow: 1px 1px 2px 2px darken(white, 35%);
-    color: $header-color;
-    border-radius: .25rem;
-    text-align: center;
-  }
-  i {
-    @include laptops  {
-      display: none;
-    }
-  }
   form  {
     width: 80%;
     margin: 0 auto;
@@ -37,8 +18,7 @@
       margin-top: 6.25rem;
     }
     @include laptops  {
-      width: 90%;
-      margin-top: .625rem;
+      max-width: 31.25rem;
     }
     fieldset  {
       margin: 0;
@@ -59,22 +39,13 @@
         @include mq-not-mobile  {
           height: 15.625rem;
         }
-        @include laptops  {
-          height: 9.375rem;
-        }
       }
       .timeAndDate  {
         display: flex;
-        @include laptops  {
-          flex-direction: column;
-        }
         div   {
           display: flex;
           flex-direction: column;
           width: 50%;
-          @include laptops  {
-            width: 100%;
-          }
           label,
           input {
             border: none;
@@ -91,6 +62,7 @@
           width: 2.1875rem;
           height: 2.1875rem;
           border-radius: 50%;
+          cursor: pointer;
           &.picked {
             border: 2px solid #333;
           }
@@ -124,6 +96,7 @@
         width: 100%;
         color: $header-text-color;
         background-color: lighten($header-color,10%);
+        cursor: pointer;
         &:hover {
           background-color: $header-color;
         }

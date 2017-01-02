@@ -5,9 +5,10 @@
   display: block;
   align-items: center;
   color: $header-color;
-  div {
+  div:nth-child(1) {
     display: flex;
     padding-right: .9375rem;
+    cursor: pointer;
     i   {
       @include laptops  {
         display: none;
@@ -21,59 +22,44 @@
     font-family: $fontForText;
     flex-grow: 1;
   }
-  ul  {
-    list-style: none;
-    margin: 0;
-    padding: 0 .625rem;
+  div:nth-child(2)  {
+    margin: .625rem;
+    padding: .1875rem 1.875rem;
     display: none;
-    @include laptops{
-      display: block;
-    }
-    li  {
-      padding: .1875rem 1.25rem;
-      margin: .625rem 0;
-      border-radius: .25rem;
-      font-family: $fontForText;
-      color: $header-color;
-      background-color: darken(white, 15%);
-      box-shadow: 1px 1px 2px 2px darken(white, 25%);
+    font-family: $fontForText;
+    color: $header-color;
+    background-color: darken(white, 15%);
+    box-shadow: 1px 1px 2px 2px darken(white, 25%);
+    border-radius: .25rem;
+    font-size: .8rem;
+    @include laptops  {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      font-size: .8rem;
-      transition: background-color .5s ease,
-                  box-shadow .5s ease;
-      label:nth-of-type(n+2)  {
-        text-align: left;
-        padding-left: .625rem;
-        word-wrap: break-word;
+    }
+    span  {
+      word-wrap: break-word;
+      padding-left: .625rem;
+      text-align: left;
+      &:nth-child(4){
+        width: 25%;
       }
-      label:nth-child(2)  {
-        color: darken(white, 15%);
+      &:nth-child(3){
+        width: 15%;
       }
-      label:nth-child(3)  {
+      &:nth-child(2){
+        width: 20%;
+      }
+      &:nth-child(1){
         width: 40%;
         padding-left: 1.25rem;
       }
-      label:nth-child(4)  {
-        width: 20%;
-      }
-      label:nth-child(5)  {
-        width: 15%;
-      }
-      label:nth-child(6)  {
-        width: 25%;
-      }
-      i   {
-        padding-left: .625rem;
-      }
-      button  {
-        background-color: inherit;
-        border: none;
-        cursor: pointer;
-        &:hover {
-          color: red;
-        }
+    }
+    button  {
+      background-color: inherit;
+      border: none;
+      cursor: pointer;
+      &:hover {
+        color: red;
       }
     }
   }

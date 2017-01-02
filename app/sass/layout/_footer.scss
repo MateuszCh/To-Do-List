@@ -37,8 +37,5 @@ footer  {
       height: 2.5rem;
       font-size: 2rem;
     }
-    @include laptops  {
-      display: none;
-    }
   }
 }

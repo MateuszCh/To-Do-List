@@ -7,7 +7,6 @@
   }
   @include  laptops {
     width: 50%;
-    margin-left: 10%;
   }
   .completedTasks label:nth-child(3)  {
     text-decoration: line-through;
@@ -38,17 +37,17 @@
     font-size: 1.25rem;
     transition: background-color .5s ease,
                 box-shadow .5s ease;
-    label:nth-of-type(n+2)  {
+    span  {
       cursor: pointer;
       text-align: left;
       padding-left: .625rem;
       word-wrap: break-word;
       overflow: hidden;
     }
-    label:nth-of-type(1)  {
+    label  {
       cursor: pointer;
     }
-    label:nth-child(3) {
+    span:nth-child(3) {
       width: 80%;
       padding-right: 1.25rem;
       @include mq-not-mobile  {
@@ -58,7 +57,7 @@
         width: 40%;
       }
     }
-    label:nth-child(4)  {
+    span:nth-child(4)  {
       display: none;
       @include mq-not-mobile  {
         font-size: .8em;
@@ -69,7 +68,7 @@
         width: 20%;
       }
     }
-    label:nth-child(5)  {
+    span:nth-child(5)  {
       display: none;
       @include laptops  {
         font-size: .8em;
@@ -77,7 +76,7 @@
         width: 15%;
       }
     }
-    label:nth-child(6)  {
+    span:nth-child(6)  {
       display: none;
       @include laptops  {
         font-size: .8em;
