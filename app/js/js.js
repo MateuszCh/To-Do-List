@@ -358,8 +358,12 @@
                 markCategory()
             }, 501);
         }
-        if(e.target && e.target.classList.contains("task")){
-            indexOfObject = e.target.parentNode.dataset.indexNumber;
+        if(e.target && (e.target.classList.contains("task")|| e.target.classList.contains("listy"))){
+            if(e.target.classList.contains("task")){
+                indexOfObject = e.target.parentNode.dataset.indexNumber;
+            } else {
+                indexOfObject = e.target.dataset.indexNumber;
+            }
             currentTaskObject = indexOfObject;
             editForm.style.display = "block";
             editForm.classList.add("slideDown");
